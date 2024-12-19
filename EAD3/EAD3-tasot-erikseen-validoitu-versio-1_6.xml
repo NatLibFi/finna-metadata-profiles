@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns="http://ead3.archivists.org/schema/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://ead3.archivists.org/schema/ https://www.loc.gov/ead/ead3.xsd">
+    <control>
+        <recordid>167887881374400</recordid>
+        <filedesc>
+            <titlestmt>
+                <titleproper lang="fin">Kansalliskirjaston käsikirjoituskokoelma</titleproper>
+                <subtitle lang="fin">Fonteen kuvaillut aineistot</subtitle>
+                <author>Kansalliskirjasto</author>
+            </titlestmt>
+            <publicationstmt>
+                <publisher>Kansalliskirjasto</publisher>
+            </publicationstmt>
+        </filedesc>
+        <maintenancestatus value="derived"/>
+        <maintenanceagency>
+            <agencyname>Kansalliskirjasto</agencyname>
+        </maintenanceagency>
+        <maintenancehistory>
+            <!-- PAKOLLINEN : Skeeman mukaan maintenancehistory ja vähintään yksi maintenanceevent vaaditaan.
+                 EHDOTUS   : Mikäli tietueen historiaa ei saada YKSAsta tapahtumiksi, maintenanceeventiksi laitetaan OAI-PMH haravointia varten tehty tietuemuunnos YKSAn sisäisestä muodosta.-->
+            <maintenanceevent>
+                <eventtype value="derived"/>
+                <eventdatetime standarddatetime="2023-11-14T13:55:38.607Z">2023-11-14T13:55:38.607Z</eventdatetime>
+                <!-- Sama kuin OAI-PMH:n <datestamp>2023-11-14T13:55:38.607Z</datestamp> ?-->
+                <agenttype value="machine"/>
+                <!--Required (values limited to: human, machine, unknown)-->
+                <agent>YKSA_to_EAD3_v1_23.xsl</agent>
+                <!-- EHDOTUS: tieto millä koodilla ja sen versiolla muunnos on tehty. Esimerkkiarvo keksitty. -->
+                <eventdescription>Muunnettu YKSAn sisäisestä tietomallista EAD3 tietueeksi OAI-PMH haravointia varten.</eventdescription>
+            </maintenanceevent>
+        </maintenancehistory>
+    </control>
+    <!-- archdesc-taso eli arkistotaso eli ylin kuvailutaso EAD3ssa, ei arkistonmuodostajaa EAD3-formaattiin vaan EAC-CPF-formaattiin -->
+    <!-- level-attribuutin sisältönä "fonds" tai "collection" = arkisto- tai kokoelma-aineistotyypit tämän mukaan -->
+
+    <!-- Tässä esimerkissä kukin alin kuvailutaso tuodaan aina omana tietueenaan sisältäen alimman tason kaikki ylemmät hierarkiat (mahdollisuus laittaa alimmat tasot omiksi tietueikseen TAI tuoda kokonaisena arkistona eli yhtenä EAD3-tietueena) -->
+    <!-- erillisinä tietueina tuotuna ylimmän tason ja välitasojen tiedot toistuvat sellaisenaan -->
+       <!--  VALIDAATTORI: https://saa-sdt.github.io/eas-validator/ -->
+
+    <archdesc level="fonds">
+
+        <did>
+            <repository encodinganalog="ahaa:AI42">
+                <corpname identifier="xxxx">
+                    <part lang="fin">Säilyttävän tai hallinnoivan organisaation nimi suomeksi</part>
+                    <part lang="swe">Säilyttävän tai hallinnoivan organisaation nimi ruotsiksi + englanti ja pohjois-saame</part>
+                </corpname>
+            </repository>
+            <origination label="Arkistonmuodostaja">
+                <!-- käy myös Creator, tai ilmankin, koska origination-elementtiin tulee aina vain arkistonmuodostaja -->
+                <name identifier="xxx">
+                    <!-- ensisijaisesti yksilöivä, koneluettava viittaus  EAC- tai muuhun toimijatietueeseen -->
+                    <part>Arkistonmuodostajan nimi</part>
+
+                    <!-- Vaihtoehtoinen tapa tuoda nimiä, erityisesti, jos ne ovat vaihtuneet -->
+                    <part localtype="Ensisijainen nimi" lang="fin">Hallinnoijan ensisijainen nimi</part>
+                    <part localtype="suhteen ajallinen kattavuus">1897-1956</part>
+                </name>
+            </origination>
+            <unitdate label="Ajallinen kattavuus" normal="KAM-suosituksen ja ISO 8601 -standardin mukaisesti merkittynä koneluettavana">Ihmisluettava aikaväli arkistoaineistolle</unitdate>
+            <unittitle lang="fin">Arkiston tai kokoelman nimi esim. Väinö Linnan arkisto</unittitle>
+            
+            <!-- käy myös Creator  lisäohjeita unitidstä: https://www.kiwi.fi/x/1ABjEw -->
+            <unitid label="Tekninen" identifier="1138625725"> SIGNUM</unitid>
+            
+            <!-- elementin sisällä oleva tieto on mahdollista lisätä nimekkeisiin sarja- ym. tasoilla -->
+            <unitid label="Viivakoodi">A1591172618CXDae</unitid>
+            
+            <!-- physdesc voi sisältää myös kokonaisuuden eri aineistotyyppien määriä ylimmällä kuvailutasolla. Kannattaa lisätä laajuuden määre mukaan. 
+                (Tarvitaanko määretieto attribuuttiin joissakin käyttötapauksissa?) https://loc.gov/ead/EAD3taglib/EAD3-TL-eng.html#elem-physdesc -->
+            <physdesc lang="swe">Hyllmeter ordnat 1.94 hm</physdesc>
+            <physdesc lang="fin">Järjestettyä aineistoa 1,94 hm</physdesc>
+            <physdesc lang="swe">Fotografier 400 st</physdesc>
+            <physdesc lang="fin">Valokuvia 400 kpl</physdesc>
+            <physdesc lang="swe">Ljud 11 h</physdesc>
+            <physdesc lang="fin">Ääni 11 h</physdesc>
+
+            <!-- Myös strukturoitua muotoa tuetaan -->
+            <physdescstructured lang="fi" coverage="part " physdescstructuredtype="carrier">
+                <quantity>9</quantity>
+                <unittype>koteloa</unittype>
+            </physdescstructured>
+
+            <!-- ei pakollisia -->
+            <physloc label="sijainti">Rovaniemen toimipiste.</physloc>
+
+
+            <!-- ylimmän kuvailutason aineistotyyppi eli aineistokokonaisuuden tyyppi -->
+     
+            <langmaterial>
+                <language langcode="fin"/>
+            </langmaterial>
+        </did>
+        <controlaccess>
+            <genreform encodinganalog="ahaa:AI08">
+                <part lang="fin">Kokoelma/Arkisto/muu aineistokokonaisuus (valitse yksi)</part>
+            </genreform>   
+        </controlaccess>     
+  
+        <arrangement encodinganalog="">
+                <p>Järjestty ABC-kaavan mukaisesti</p>
+        </arrangement>
+        <otherfindaid>
+            <p lang="fi">Toinen hakemisto tai paikka, missä aineistoon on pääsy, toimii linkkitekstinä<ref href="https://yksa.fi/100211/167162669994200"/></p>
+             <p lang="eng">Material available in other finding aid<ref href="https://yksa.fi/100380/172966653824600?lang=en"/></p>
+            <p lang="swe">Material <ref href="https://yksa.fi/100380/172966653824600?lang=sv"/></p>
+        </otherfindaid>
+
+     
+
+        <!-- tietosisältö (scopecontent ilman tarkennusta) https://loc.gov/ead/EAD3taglib/EAD3-TL-eng.html#elem-scopecontent -->
+        <scopecontent>
+            <p lang="fin">Aineistokokonaisuus sisältää ...</p>
+        </scopecontent>
+
+        <!-- aineiston syntyhistoria (ahaa-peräinen tarkenne)-->
+        <scopecontent encodinganalog="AI10">
+            <p lang="fin">Syntyhistoriasta tietoa</p>
+        </scopecontent>
+
+        <!-- pääsyrajoitukset, sekä käyttöoikeudet ja -rajoitukset -->
+        <accessrestrict encodinganalog="5xxxx6">
+            <p lang="fin">Pääsy rajoitettu tietosuojalain nojalla osaan arkistoa.</p>
+            <p lang="eng">restricted</p>
+        </accessrestrict>
+        
+        <!-- käyttöoikeustieto kohdistuu yleensä digitaalisiin objekteihin, mutta voi kuvata myös muita käyttöoikeuksia -->
+        <userestrict encodinganalog="https://creativecommons.org/">
+            <p>
+                <ref href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</ref>
+            </p>
+        </userestrict>
+
+        <!-- Myös eri rightstatementeille eli käyttöoikeuskuvauksille toteutetaan tuki aina tarvittaessa: https://rightsstatements.org/page/1.0/?language=fi -->
+        <userestrict>
+            <p>
+                <ref href="http://rightsstatements.org/vocab/NoC-OKLR/1.0/">NoC-OKLR/1.0//</ref>
+            </p>
+            <p>Ei tekijänoikeutta - muita tunnettuja oikeudellisia rajoitteita</p>
+        </userestrict>
+
+        <!-- ensimmäinen sarjataso  -->
+        <dsc>
+            <c01 level="series">
+                <did>
+                    <repository encodinganalog="ahaa:AI42">
+                        <corpname identifier="xxxx">
+                            <part lang="fin">Säilyttävän tai hallinnoivan organisaation nimi suomeksi</part>
+                            <part lang="swe">Säilyttävän tai hallinnoivan organisaation nimi ruotsiksi</part>
+                        </corpname>
+                    </repository>
+                    <unitdate label="Ajallinen kattavuus" normal="1885-uu-uu/1892-uu-uu">1885-1892</unitdate>
+                    <unittitle normal="K&#xC4;SIKIRJOITUKSET" lang="fin">K&#xC4;SIKIRJOITUKSET</unittitle>
+                    <unitid label="Tekninen" identifier="116988129">A</unitid>
+                    <unitid label="J&#xE4;rjestysnumero">1</unitid>
+                    <unitid label="Vanha tekninen">S_3517</unitid>
+                    <unitid label="Viivakoodi">A155rrr</unitid>
+                    <physdesc lang="swe">Aineistotyyppi: Text, j&#xE4;rjest&#xE4;m&#xE4;t&#xF6;n 1.3 Hyllmeter</physdesc>
+
+                    <!-- ???? -->
+                    <origination label="Arkistonmuodostaja">
+                        <!-- käy myös Creator -->
+                        <name identifier="xxx">
+                            <!-- ensisijaisesti yksilöivä, koneluettava viittaus  EAC- tai muuhun toimijatietueeseen -->
+                            <part>Arkistonmuodostajan nimi</part>
+
+                            <!-- Vaihtoehtoinen tapa tuoda nimiä, erityisesti, jos ne ovat vaihtuneet -->
+                            <part localtype="Ensisijainen nimi" lang="fin">Hallinnoijan ensisijainen nimi</part>
+                            <part localtype="suhteen ajallinen kattavuus">1897-1956</part>
+                        </name>
+                    </origination>
+                </did>
+
+                <controlaccess>
+                    <!-- ylemmän tason aineistotyyppi
+                    (jos encodinganalalog="ahaa:AI46", 
+                    ei käytetä finnan aineistotyyppimappauksissa, vaan vain näytetään käyttäjälle) 
+                    - toimii myös ilman encodinganalog-attribuuttia -->
+                    <!-- ylimpään kuvailutasoon aineistotyypiksi arkisto, kokoelma tai muu aineistokokonaisuus -->
+
+                    <genreform encodinganalog="ahaa:AI08">
+                        <part lang="fin">Teksti</part>
+                        <part lang="swe">Text</part>
+                        <part lang="eng">Text</part>
+                    </genreform>
+                    <!-- alemman eli tarkemman tason aineistotyyppi, jompi kumpi pakollinen -->
+                    <genreform encodinganalog="ahaa:AI57">
+                        <part lang="fin">K&#xE4;sikirjoitus</part>
+                        <part lang="swe">Manuskript</part>
+                        <part lang="eng">Manuscript</part>
+                    </genreform>
+                </controlaccess>
+
+                <!-- julkaisu, jossa aineistoa on käytetty, mukaan voi laittaa myös finna-URLin -->
+            
+                <bibliography>
+                    <p lang="fin"> 
+                        <ref href="http://www.urn.fi/URN:NBN:fi:jyu-201907033559" linkrole="URN">URN:NBN:fi:jyu-201907033559</ref>
+                        <ref href="https://finna.fi/Record/jyx.123456789_65048?sid=4729594825#details" linkrole="finna"/>
+                            Soveltava kulttuurintutkimus on kuin avoin syli, Kalakoski Ida, 2019 </p>
+                </bibliography>
+
+
+               <!-- useimmat elementit ovat tarjolla kaikilla kuvailutasoilla (niitä ei toisteta tässä mallissa, ellei välttämätöntä)-->  
+                <c02 level="series">
+                    <did>
+                        <unitid identifier="169417155690700">HC</unitid>
+                        <unittitle lang="fin" localtype="maintitle">K&#xE4;sikirjoitukset</unittitle>
+                    </did>
+                    <controlaccess>
+                        <genreform encodinganalog="ahaa:AI08">
+                            <part lang="fin">Teksti</part>
+                            <part lang="swe">Text</part>
+                            <part lang="eng">Text</part>
+                        </genreform>
+                        <!-- alemman eli tarkemman tason aineistotyyppi, jompi kumpi pakollinen -->
+                        <genreform encodinganalog="ahaa:AI57">
+                            <part lang="fin">K&#xE4;sikirjoitus</part>
+                            <part lang="swe">Manuskript</part>
+                            <part lang="eng">Manuscript</part>
+                        </genreform>
+                    </controlaccess>
+                    <!--alin taso tässä hierarkian oksassa-->
+                    <c03 level="item">
+                        <did>
+                            <unitid identifier="169417155690811">HCa</unitid>
+                            <unittitle lang="fin">Käsikirjoitus XXX</unittitle>
+                            <!-- Digitaaliset objektit: eri versioita erilaisten digitaalisten objektien tarpeisiin -->
+                            <!-- Mitkä attribuutit pakollisia finnan kannalta, mitkä edesauttaa asioita? -->
+                            <!--  1. Usea versio samasta kuvasta/tiedostosta: samaan daoset-elementtiin  -->
+                            <daoset coverage="part" label="Digitaaliset objektit">
+                                <dao actuate="onrequest" coverage="part" daotype="derived" href="tiedoston osoite" linkrole="application/pdf" linktitle="Kuolleiden kortisto 1933 N - &#xD6; (20).pdf" localtype="fullsize" show="new"/>
+                                <dao actuate="onload" coverage="part" daotype="derived" href="kuvan osoite" linkrole="image/jpeg" linktitle="Kuolleiden kortisto 1933 N - &#xD6; (20).pdf" localtype="thumbnail" show="embed"/>
+                            </daoset>
+                            <!--  Useita eri kuvia, yksi versio kustakin: samaan daoset-elementtiin  
+                            pakolliset attribuutit dao-elementeissä: href, daotype
+                            suositeltavat attribuutit dao-elementteihin:
+                            - linkrole (=esim. image/jpg)
+                            - lang (mahdollisuus tuoda useita eri kieliversioita samasta tiedostosta)
+                            - linktitle
+                            - localtype (fullres tai thumbnail)
+                            - label (järjestysnumero tiedostoille)
+                        
+                        - jos haluaa tuoda videot vain ladattaviksi, actuate="onrequest" ja show="none"
+                    
+                            -->
+                            <daoset>
+                                <dao daotype="derived" label="1" identifier="116543840" href="XX" linktitle="Tiedosto 1"/>
+                                <dao daotype="derived" label="2" identifier="116543845" href="XX" linktitle="Tiedosto 2"/>
+                                <dao daotype="derived" label="3" identifier="116543850" href="XX" linktitle="Tiedosto 3"/>
+                                <dao daotype="derived" label="4" identifier="116543855" href="XX" linktitle="Tiedosto 4"/>
+                                <dao daotype="derived" label="5" identifier="116543860" href="XX" linktitle="Tiedosto 5"/>
+                                <dao daotype="derived" label="6" identifier="116543865" href="XX" linktitle="Tiedosto 6"/>
+                            </daoset>
+                            <!--  Useita eri kuvia ja eri versioita niistä: Yhden kuvan eri versiot yhteiseen daoset-elementtiin. Useita daoset-elementtejä.  -->
+                            <daoset coverage="part" label="Digitaaliset objektit">
+                                <dao actuate="onrequest" coverage="part" daotype="derived" href="tiedoston osoite" linkrole="application/pdf" linktitle="Kuolleiden kortisto 1933 N - &#xD6; (20).pdf" localtype="fullsize" show="new"/>
+                                <dao actuate="onload" coverage="part" daotype="derived" href="kuvan osoite" linkrole="image/jpeg" linktitle="Kuolleiden kortisto 1933 N - &#xD6; (20).pdf" localtype="thumbnail" show="embed"/>
+                            </daoset>
+                            <daoset coverage="part" label="Digitaaliset objektit">
+                                <dao actuate="onrequest" coverage="part" daotype="derived" href="tiedoston osoite" linkrole="application/pdf" linktitle="Kuolleiden kortisto 1977 N - &#xD6; (20).pdf" localtype="fullsize" show="new"/>
+                                <dao actuate="onload" coverage="part" daotype="derived" href="kuvan osoite" linkrole="image/jpeg" linktitle="Kuolleiden kortisto 1977 N - &#xD6; (20).pdf" localtype="thumbnail" show="embed"/>
+                            </daoset>
+                            <!--  Yksittäinen digitaalinen objekti: Ei daoset-elementtiä, suoraan dao-elementtiin did-elementin sisällä.  -->
+                            <dao daotype="derived" label="1" identifier="116543840" href="XX" linktitle="Tiedosto 1"/>
+                        </did>
+                        <userestrict encodinganalog="https://creativecommons.org/">
+                            <p>
+                                <ref href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</ref>
+                            </p>
+                        </userestrict>
+
+                        <controlaccess>
+                            <genreform encodinganalog="ahaa:AI08">
+                                <part lang="fin">Teksti</part>
+                                <part lang="swe">Text</part>
+                                <part lang="eng">Text</part>
+                            </genreform>
+                    <!-- alemman eli tarkemman tason aineistotyyppi, jompi kumpi pakollinen -->
+                            <genreform encodinganalog="ahaa:AI57">
+                                <part lang="fin">K&#xE4;sikirjoitus</part>
+                                <part lang="swe">Manuskript</part>
+                                <part lang="eng">Manuscript</part>
+                            </genreform>
+                            <subject identifier="http://www.yso.fi/onto/yso/p2077" source="yso">
+                                <part lang="swe">sommarvillor</part>
+                            </subject>
+
+                            <geogname identifier="http://www.yso.fi/onto/yso/p111563" lang="fin" relator="aihe" source="YSO">
+                                <part>Tullisaari (Helsinki)</part>
+                            </geogname>
+                            <geogname identifier="http://www.yso.fi/onto/yso/p105609" lang="fin" relator="aihe" source="YSO">
+                                <part>Laajasalo (Helsinki)</part>
+                            </geogname>
+                            <!-- jos ei YSO-tms URIa, jonka perusteella voi koordinaatit rikastaa-->
+                            <geogname lang="fin" relator="aihe">
+                                <part>Helsinki</part>
+                                <geographiccoordinates coordinatesystem="WGS84">63.672, 22.710</geographiccoordinates>
+                            </geogname>
+                            
+                        </controlaccess>
+                   <!-- relationtype: Required (values limited to: cpfrelation, functionrelation, resourcerelation, otherrelationtype) -->    
+                    <!-- tekijän rooli suhteessa aineistoon ei ole pakollinen tieto, ja siinä voi käyttää RDA-sanastoa tai Metatietosanastoa lähteenä https://finto.fi/mts/fi/page/m34 (ei kata arkistoaineistojen rooleja)) finnan tukemat roolit asiakaswiksisä -->    
+
+                        <relations>
+                            <relation relationtype="cpfrelation" href="toimijan ID" arcrole="tekijärooli suhteessa aineistoon">
+                                <relationentry> Maija Mehiläinen</relationentry>
+                            </relation>
+                            <relation relationtype="cpfrelation" href="toimijan ID" arcrole="aihe">
+                                <relationentry> mikko Mehiläinen</relationentry>
+                            </relation>
+                            <!-- liittyvät aineistot, erilainen näyttämistapa, mikäli käytetään encodinganalog="ahaa:AI30" (erillinen liittyvät aineistot -elementti aineistosivulla)-->
+                             <relation relationtype="resourcerelation" href="finna.fi/kansanarkisto/xyzzz">
+                                <relationentry id="xxyyzz"> Maija Mehiläinen lähettämät kirjeet</relationentry>
+                            </relation>
+                            <relation encodinganalog="ahaa:AI30" relationtype="resourcerelation" href="112210799" arcrole="Katso my&#xF6;s">
+	                                <relationentry>Erkki Valan arkisto</relationentry>
+	                        </relation>
+
+                        </relations>
+
+                    </c03>
+                </c02>
+            </c01>
+
+        </dsc>
+    </archdesc>
+</ead>
