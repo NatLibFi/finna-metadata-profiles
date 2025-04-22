@@ -31,7 +31,7 @@ To read the documentation, download the HTML file and open it in a web browser.
 #### Validating a LIDO record
 
 Tools used in examples:
-- xmllint (available by default of macOS, on Linux it typically comes with libxml2 or libxml2-utils package
+- xmllint (available by default of macOS, on Linux it typically comes with libxml2 or libxml2-utils package)
 - xslt3 ([SaxonJS](https://www.saxonica.com/html/saxonjs/index.html) node.js CLI package)
 
 To validate a LIDO document against the application profile XSD, you may use the XSD file with any XML validation tool, such as an XML editor with XSD support or a command line validator. Example how to validate a LIDO record lidorecord.xml with command line tool xmllint:
