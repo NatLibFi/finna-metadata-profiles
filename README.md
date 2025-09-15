@@ -52,4 +52,4 @@ Schematron rules of severity type "information" contain recommendations that are
 
 ### The latest version
 
-The subfolders in the LIDO folder are named by the version number and contain all files related to the specific version. Currently, only the first public beta version of the LIDO application profile is available. When a new version of the profile is published, it will be added to the LIDO folder.
+The subfolders in the LIDO folder are named by the version number and contain all files related to the specific version. Currently, only a public beta version of the LIDO application profile is available. When a new version of the profile is published, it will be added to the LIDO folder.
