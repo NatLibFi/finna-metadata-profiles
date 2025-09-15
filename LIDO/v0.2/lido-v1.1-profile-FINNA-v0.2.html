@@ -1,0 +1,3824 @@
+<!DOCTYPE HTML><html xmlns:lido="http://www.lido-schema.org" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>/* 	Copyright (Simon Sendler 2022–2023). 	Licensed under the EUPL–1.2 or later. */ :root {     /* Colors */     --color-bg-contrast: #fdfdfd;     --color-bg: #fefefe;     --color-font: #333;     --color-primary: #BC8B29;     --color-secondary: #549E9E;     --color-light: #eee; }  html {     display: flex; }  body {     background: var(--color-bg);     color: var(--color-font); 	font-family: Verdana, Tahoma, Geneva, Arial, Helvetica, sans-serif;     font-size: 110%;     line-height: 1.4;     margin: 0 auto; }  p, section, .ap-unit {     max-width: 70ch; }  h1, h2, h3, h4, h5, h6 {     color: var(--color-primary);     font-weight: 300;     margin: 1em 0 0.5em; }  pre {     overflow: scroll; }  ul {     list-style: circle; }  a {     color: var(--color-secondary); }  p {     margin: 0 0 1em; }  .ap-unit, .sch_pattern {     border-bottom: 1px solid var(--color-font); }  .ap-unit > [class*="ap_"], .sch_rule {     margin-top: 1em;     border-bottom: 1px solid var(--color-light);     padding-bottom: 0.5em; }  [class*="ap_"] > [class*="ap_"] {     align-items: start;     column-gap: 1em;     display: grid;     grid-template-areas:         "label content"         "label content"         "label content";     grid-template-columns: 10em auto;     justify-items: stretch;     margin: 1em 0 0.5em 2em; }  [class*="ap_"] > div > * {     display: block;     margin-top: 0; }  [class*="ap_"] span {     color: var(--color-primary);     display: inline-block;     grid-area: label;     font-weight: 300;     margin-bottom: 1em; }  [class*="ap_"] span ~ * {     grid-area: content;     margin-left: 1em; }  [class*="ap_attributes"] ul {     list-style: none;     padding: 0; }  [class*="ap_may_contain"] ul {     list-style: none;     padding: 0; }  [class*="ap_contained_by"] ul {     list-style: none;     padding: 0; }  /* [class*="ap_contained_by"] a {     color:blue; } */   [class*="ap_recording_notes"] ul {     list-style: unset; }  [class*="ap_divergence_from_LIDO"] ul {     list-style: unset; }  [class*="ap_additional_Schematron_rules"] ul {     list-style: unset; }  .ap-unit h4 {     font-weight: 300;     margin-top: 0; }  h4.attribute {     color: var(--color-font);     font-weight: 600; }  .element {     color: var(--color-primary); }  .attribute {     color: var(--color-secondary); }  .sch_rules h3 {     font-size: 1.5em; } .sch_rules h4 {     font-size: 1.17em; }  .indent1 {     margin-left: +20px;  }  .indent2 {     margin-left: +40px;  }  .indent3 {     margin-left: +60px;  }  .indent4 {     margin-left: +80px;  }</style>
+      <title>FINNA LIDO Profile</title>
+   </head>
+   <body>
+      <header>
+         <h1>FINNA LIDO Profile</h1><span>An Application Profile for LIDO v1.1</span><p><b>This Version: </b>0.2</p>
+         <p><b>Publication date: </b>22 April 2025</p>
+         <p><b>Authors: </b>FINNA / National Library of Finland</p>
+         <p><b>Publisher: </b>National Library of Finland</p>
+         <p><b>Licence: </b><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International (CC BY 4.0)</a></p>
+      </header>
+      <section>
+         <h2>Version history</h2>
+         <details>
+            <summary>0.1</summary>
+            <div>Public Beta Initial release</div>
+         </details>
+         <details>
+            <summary>0.2</summary>
+            <div>Public Beta Version 0.2 includes changes to elements lido:repositorySet, lido:workID, lid:actorID,
+               lido:placeID and lido:subjectConcept. Also, there are small improvements to Schematron
+               patterns.
+               <ul>
+                  <li class="">Element lido:workID is no longer declared mandatory within every lido:repositorySet.
+                     Instead, element lido:repositorySet is now declared mandatory and there is a new Schematron
+                     rule to check that there is at least one non-empty lido:repositorySet/lido:workID
+                     element.</li>
+                  <li class="">Attribute liso:source is no longer declared mandatory in lido:actorID, lido:placeID
+                     or lido:subjectConcept/lido:conceptID. Instead, the attribute is recommended.</li>
+                  <li class="">If a LIDO element is empty, Schematron patterns will no longer check the use of attributes
+                     or contents of the element.</li>
+                  <li class="">Schematron patterns for lido:inscriptionDescription also allow Finnish versions of
+                     the recommended attributes.</li>
+               </ul>
+            </div>
+         </details>
+      </section>
+      <section class="guideline_introduction">
+         <h2>FINNA LIDO profile version 0.1</h2>
+         <h2>Background</h2>
+         <p>The FINNA LIDO profile is designed for Finnish institutions and system providers <a href="https://www.kiwi.fi/x/6wkXAw">aiming to publish their data in Finna</a> using the <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html">LIDO (Lightweight Information Describing Objects) format</a>.</p>
+         <p>Finna.fi is a search service that brings together materials from hundreds of Finnish
+            cultural heritage institutions in one easy search. In addition, Finna offers tools
+            for institutions to build their own web service on the Finna platform. For enabling
+            data reuse, Finna maintains APIs and the National Europeana Aggregation service. Finna
+            was launched in 2013 and is maintained by The National Library of Finland and funded
+            by The Ministry of Education and Culture.</p>
+         <p>In the beginning of 2025, there are over 100 institutions and over 10 different collection
+            management systems providing heterogenous data to Finna in LIDO format. Many records
+            are not fully compliant with the latest version of the LIDO schema, and normalization
+            and complex mapping rules are needed to make all data searchable and displayable.</p>
+         <p>The FINNA LIDO profile contains a structured documentation of Finna's requirements
+            and recommendations for LIDO records. The profile also offers tools for validating
+            LIDO records against the requirements and recommendations. The purpose of the profile
+            is to improve the consistency of LIDO records and to raise the quality of the metadata
+            available in Finna.fi. By using this profile, institutions can make sure that their
+            data complies with the technical requirements and the quality standards of the service.</p>
+         <p>When defining requirements and recommendations, we have used the recommendations of
+            the <a href="https://lido-schema.org/documents/primer/latest/lido-primer.html">LIDO Primer</a> and the <a href="https://wiki.deutsche-digitale-bibliothek.de/pages/viewpage.action?pageId=218628097">Minimum Record Recommendation for Museums and Collections</a> as a starting point, while also taking into account the technical conditions of the
+            Finna service and the cataloguing practices in Finnish museums. Since the National
+            Library of Finland is an accredited aggregator for Europeana and maintains a mapping
+            from LIDO to <a href="https://europeana.atlassian.net/wiki/spaces/EF/pages/987791389/EDM+-+Mapping+guidelines">Europeana Data Model</a> (EDM), we have also taken into account the recommendations and requirements of Europeana.</p>
+         <h2>Acknowledgments</h2>
+         <div id="Acknowledgements">
+            <p>Special thanks are due to to</p>
+            <ul>
+               <li class="">The <a href="https://gitlab.gwdg.de/lido/profiles">Generic LIDO Application Profile Workflow</a> for providing the tools used to create the profile</li>
+               <li class="">The <a href="https://gitlab.gwdg.de/lido/development/-/tree/develop">LIDO development GitLab repository</a> for providing materials and example validation workflows</li>
+               <li class="">The LIDO Working Group for useful advice on the application of LIDO</li>
+               <li class="">The Finnish Heritage Agency, especially Helena Ojala and Terhi Aho, for collaboration
+                  on the application of LIDO and on creating and maintaining the LIDO Format Template</li>
+            </ul>
+         </div>
+         <h2>Resources</h2>
+         <div id="Resources">
+            <p>The latest version of the FINNA LIDO profile is available at the finna-metadata-profiles
+               GitHub repository: <a href="https://github.com/NatLibFi/finna-metadata-profiles">https://github.com/NatLibFi/finna-metadata-profiles</a>.</p>
+            <p>The profile includes following resources:</p>
+            <ul>
+               <li class="">An HTML document describing the contents of the profile in human-readable format.</li>
+               <li class="">An XSD file (XML Schema Definition) that defines the application profile and can be
+                  used to validate LIDO records with XML validation tools. XSD validation can only check
+                  the presence or the order of LIDO elements, not their content.</li>
+               <li class="">An SCH file containing the Schematron rules defined in the application profile. Schematron
+                  rules include requirements and recommendations for the attributes and contents of
+                  LIDO elements.</li>
+               <li class="">An XSL file, generated from the SCH file, that can be used to validate a LIDO record
+                  against the Schematron rules.</li>
+            </ul>
+            <p>Instructions for using the resources for validating LIDO records are included in the
+               GitHub repository.</p>
+         </div>
+         <h2>Documenting changes to the schema</h2>
+         <div id="Documenting_changes_to_the_schema">
+            <p>This section contains information about the mandatory elements, recommended elements
+               and Schematron rules included in the FINNA LIDO profile. All LIDO elements containing
+               changes to the LIDO 1.1 schema are documented in alphabetical order in the section
+               <a href="#All_changes_to_the_schema">All changes to the schema</a>. The documentation contains following information:</p>
+            <ul>
+               <li class=""><b>Description</b>: The description of the element and a link to the LIDO 1.1 schema for further instructions
+                  and comparisons.</li>
+               <li class=""><b>Technical information</b> containing details about the structure and use of the element:</li>
+               <li class="indent1"><b>Contained by</b>: LIDO elements that may contain the current element.</li>
+               <li class="indent1"><b>May contain</b>: LIDO elements that the current element may contain; elements are declared either
+                  optional, optional - recommended or required.</li>
+               <li class="indent1"><b>Attributes</b>: LIDO attributes that the current element may use; attributes are declared either
+                  optional or required.</li>
+               <li class="indent1"><b>Cardinality</b>: The number of times the current element may be repeated within the containing element.</li>
+               <li class="indent1"><b>Recording notes</b>: Instructions how to use the element.</li>
+               <li class="indent1"><b>Divergence from LIDO</b>: Specifying how the requirements differ from the LIDO 1.1 schema.</li>
+               <li class="indent1"><b>Additional Schematron rules</b>: A list of <a href="#Schematron_rules">Schematron rules</a> included in the FINNA LIDO profile regarding the current element.</li>
+               <li class=""><b>Examples</b>: LIDO XML examples of how to use the element.</li>
+            </ul>
+            <h3>Mandatory elements</h3>
+            <div id="Mandatory_elements">
+               <p>There are only few mandatory elements in the LIDO 1.1 schema. The FINNA LIDO profile
+                  contains additional requirements for the mandatory elements and declares two more
+                  elements mandatory.</p>
+               <p>As the content type of an object described by a certain record defines what metadata
+                  is most important, only LIDO elements that are essential to all content types are
+                  declared mandatory by the FINNA LIDO profile. However, since Finna's search functionalities
+                  and the needs of end users require rich metadata, LIDO records containing only the
+                  mandatory elements are of low usability. Therefore, we strongly recommend providing
+                  more information than just the mandatory elements.</p>
+               <p>Mandatory elements in the LIDO 1.1 schema are:</p>
+               <ul>
+                  <li class=""><a href="#lidoRecID">lido:lidoRecID</a></li>
+                  <li class="indent1">Also, the FINNA LIDO profile requires that there is exactly 1 lido:lidoRecID element.</li>
+                  <li class=""><a href="#objectWorkType">lido:objectWorkType</a></li>
+                  <li class="indent1">Also, the FINNA LIDO profile requires that the lido:term element contained by lido:objectWorkType
+                     is not empty.</li>
+                  <li class=""><a href="#titleSet">lido:titleSet</a></li>
+                  <li class="indent1">Also, the FINNA LIDO profile requires that there is at least one lido:titleSet containing
+                     a lido:appellationValue element that is not empty.</li>
+                  <li class=""><a href="https://lido-schema.org/schema/latest/lido.html#recordID">lido:recordID</a></li>
+                  <li class=""><a href="https://lido-schema.org/schema/latest/lido.html#recordType">lido:recordType</a></li>
+                  <li class=""><a href="#recordSource">lido:recordSource</a></li>
+                  <li class="indent1">Also, the FINNA LIDO profile requires that lido:recordSource contains at least one
+                     lido:legalBodyName element with a lido:appellationValue element that is not empty.</li>
+               </ul>
+               <p>Further elements declared mandatory by the FINNA LIDO profile are:</p>
+               <ul>
+                  <li class=""><a href="#repositorySet">lido:repositorySet</a></li>
+                  <li class="indent1">Also, the FINNA LIDO profile requires that there is at least one lido:repositorySet
+                     containing a lido:workID element that is not empty.</li>
+                  <li class=""><a href="#recordRights">lido:recordRights</a></li>
+               </ul>
+               <p>In addition to elements that are always mandatory, there are elements that are mandatory
+                  when the super-element (parent-element in XML) is used. In LIDO 1.1 schema, these
+                  are:</p>
+               <ul>
+                  <li class="">lido:actor is mandatory within lido:actorInRole</li>
+                  <li class="">lido:appellationValue is mandatory within
+                     									
+                     <li class="indent1">lido:eventName</li>
+                     <li class="indent1">lido:legalBodyName</li>
+                     <li class="indent1">lido:nameActorSet</li>
+                     <li class="indent1">lido:namePlaceSet</li>
+                     <li class="indent1">lido:objectName</li>
+                     <li class="indent1"><a href="#titleSet">lido:titleSet</a></li>
+                  </li>
+                  <li class=""><a href="#eventType">lido:eventType</a> is mandatory within <a href="#event">lido:event</a></li>
+                  <li class=""><a href="#linkResource">lido:linkResource</a> is mandatory within <a href="#resourceRepresentation">lido:resourceRepresentation</a></li>
+                  <li class="">lido:measurementType is mandatory within
+                     									
+                     <li class="indent1">lido:measurementsSet</li>
+                     <li class="indent1">lido:resourceMeasurementsSet</li>
+                  </li>
+                  <li class="">lido:measurementUnit is mandatory within
+                     									
+                     <li class="indent1">lido:measurementsSet</li>
+                     <li class="indent1">lido:resourceMeasurementsSet</li>
+                  </li>
+                  <li class="">lido:measurementValue is mandatory within
+                     									
+                     <li class="indent1">lido:measurementsSet</li>
+                     <li class="indent1">lido:resourceMeasurementsSet</li>
+                  </li>
+                  <li class="">lido:nameActorSet is mandatory within lido:actor</li>
+               </ul>
+               <p>Some elements may also become mandatory if a sub-element (child-element in XML) is
+                  used. A full list can be found in the <a href="https://lido-schema.org/documents/primer/latest/lido-primer.html#mandatory-elements">LIDO Primer</a>.</p>
+               <p>The FINNA LIDO profile specifies these additional rules:</p>
+               <ul>
+                  <li class="">lido:descriptiveNoteValue is mandatory within
+                     									
+                     <li class="indent1"><a href="#inscripitonDescription">lido:inscriptionDescription</a></li>
+                     <li class="indent1"><a href="#objectDescriptionSet">lido:objectDescriptionSet</a></li>
+                  </li>
+                  <li class="">lido:displayObject is mandatory within <a href="#relatedWork">lido:relatedWork</a></li>
+                  <li class=""><a href="#event">lido:event</a> is mandatory within <a href="#eventSet">lido:eventSet</a></li>
+                  <li class="">lido:legalBodyName is mandatory within <a href="#recordSource">lido:recordSource</a></li>
+                  <li class="">lido:relatedWork is mandatory within <a href="#relatedWorkSet">lido:relatedWorkSet</a></li>
+                  <li class="">lido:relatedWorkRelType is mandatory within <a href="#relatedWorkSet">lido:relatedWorkSet</a></li>
+                  <li class="">lido:rightsType is mandatory within
+                     									
+                     <li class="indent1"><a href="#recordRights">lido:recordRights</a></li>
+                     <li class="indent1"><a href="#rightsResource">lido:rightsResource</a></li>
+                  </li>
+                  <li class="">lido:term is mandatory within 
+                     									
+                     <li class="indent1"><a href="#classification">lido:classification</a></li>
+                     <li class="indent1"><a href="#eventType">lido:eventType</a></li>
+                     <li class="indent1"><a href="#objectType">lido:objectType</a></li>
+                     <li class="indent1"><a href="#objectWorkType">lido:objectWorkType</a></li>
+                     <li class="indent1"><a href="#relatedWorkRelType">lido:relatedWorkRelType</a></li>
+                  </li>
+               </ul>
+            </div>
+            <h3>Recommended elements</h3>
+            <div id="Recommended_elements">
+               <p>In addition to the mandatory elements, it is advisable to include all LIDO fields
+                  that contain relevant information. The most relevant fields may vary depending on
+                  the item and its content type, so the recommendations given here only provide general
+                  guidelines for all different content types.</p>
+               <p>LIDO elements recommended by the FINNA LIDO profile are:</p>
+               <ul>
+                  <li class=""><a href="#classification">lido:classification</a></li>
+                  <li class=""><a href="#eventSet">lido:eventSet</a></li>
+                  <li class=""><a href="#objectDescriptionSet">lido:objectDescriptionSet</a></li>
+                  <li class=""><a href="#subjectConcept">lido:subjectConcept</a></li>
+               </ul>
+               <p>Furthermore, the following LIDO elements are recommended by the FINNA LIDO profile
+                  when the super-element is used:</p>
+               <ul>
+                  <li class="">lido:conceptID is recommended within <a href="#subjectConcept">lido:subjectConcept</a></li>
+                  <li class="">lido:displayPlace is recommended within <a href="#eventPlace">lido:eventPlace</a> and <a href="#subjectPlace">lido:subjectPlace</a></li>
+                  <li class="">lido:eventActor is recommended within <a href="#event">lido:event</a></li>
+                  <li class="">lido:eventDate is recommended within <a href="#event">lido:event</a></li>
+                  <li class=""><a href="#eventPlace">lido:eventPlace</a> is recommended within <a href="#event">lido:event</a></li>
+                  <li class="">lido:gml is recommended within <a href="#place">lido:place</a></li>
+                  <li class="">lido:namePlaceSet is recommended within <a href="#place">lido:place</a></li>
+                  <li class="">lido:objectID is recommended within <a href="#relatedWork">lido:relatedWork/lido:object</a></li>
+                  <li class="">lido:resourceMeasurementsSet is recommended within <a href="#resourceRepresentation">lido:resourceRepresentation</a></li>
+                  <li class="">lido:partOfPlace is recommended within <a href="#place">lido:place</a></li>
+                  <li class=""><a href="#place">lido:place</a> is recommended within <a href="#eventPlace">lido:eventPlace</a> and <a href="#subjectPlace">lido:subjectPlace</a></li>
+                  <li class=""><a href="#placeID">lido:placeID</a> is recommended within <a href="#place">lido:place</a></li>
+               </ul>
+            </div>
+            <h3>Schematron rules</h3>
+            <div id="Schematron_rules">
+               <p>In addition to declaring elements mandatory or recommended, the FINNA LIDO profile
+                  contains requirements and recommendations for the attributes and the contents of some
+                  LIDO elements. These rules are listed in the section <a href="#All_changes_to_the_schema">All changes to the schema</a> under the elements affected by the rules. Rules are also included in machine-readable
+                  format in the XSD, SCH and XSL files included in the FINNA LIDO profile.</p>
+               <p>The Schematron rules are divided in two categories by their severity level:</p>
+               <ul>
+                  <li class="">Severity level "warning" means that the rule should be followed to pass validation.</li>
+                  <li class="">Severity level "information" means that the rule contains recommendations. Following
+                     the recommendations helps to improve the richness and the quality of the data but
+                     is not necessary to pass validation.</li>
+               </ul>
+               <p>It is possible to validate records only against the Schematron rules of a chosen severity
+                  level, allowing distinction between actual errors and data improvement suggestions.
+                  Instructions for Schematron validations are included in the GitHub repository containing
+                  the up-to-date version of the FINNA LIDO profile.</p>
+            </div>
+         </div>
+         <h2>Terminology recommendations</h2>
+         <div id="Linked_open_vocabularies_and_authority_files">
+            <h3>Linked open vocabularies and authority files</h3>
+            <p>It is recommended to refer to linked open vocabularies and authority files, whenever
+               a suitable vocabulary exists. Linked open vocabularies and authority files are used
+               e.g. to enrich data with language versions or variant names.</p>
+            <p>The <a href="http://lido-schema.org/documents/terminology-recommendation.html">LIDO Terminology Recommendation</a> includes recommendations for vocabularies to be used with specific LIDO elements
+               and attributes. We encourage following the recommendations especially for elements
+               and attributes with an existing suitable term in the <a href="http://terminology-view.lido-schema.org/">LIDO Terminology</a>.</p>
+            <p>Other vocabularies supported by Finna include:
+               <ul>
+                  <li class=""><a href="http://www.yso.fi/onto/yso/">YSO – General Finnish Ontology</a> and <a href="">KOKO Ontology</a> for
+                     							
+                     <li class="indent2">subject concepts (<a href="#subjectConcept">lido:subjectConcept</a>)</li>
+                     <li class="indent2">event methods (<a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#eventMethod">lido:eventMethod</a>) and</li>
+                     <li class="indent2">materials/techniques (<a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#termMaterialsTech">lido:termMaterialsTech</a>).</li>
+                  </li>
+                  <li class=""><a href="https://finto.fi/yso-paikat/en/">YSO places</a> for place identifiers (<a href="#placeID">lido:placeID</a>) of
+                     							
+                     <li class="indent2">event places (<a href="#eventPlace">lido:eventPlace</a>)</li>
+                     <li class="indent2">subject places (<a href="#subjectPlace">lido:subjectPlace</a>) and</li>
+                     <li class="indent2">repository locations (<a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#repositoryLocation">lido:repositoryLocation</a>).</li>
+                  </li>
+                  <li class=""><a href="https://finto.fi/finaf/en/">KANTO – National Agent Data</a> for actor identifiers (<a href="#actorID">lido:actorID</a>) of
+                     							
+                     <li class="indent2">event actors (<a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#eventActor">lido:eventActor</a>) and</li>
+                     <li class="indent2">subject actors (<a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#subjectActor">lido:subjectActor</a>).</li>
+                  </li>
+                  <li class=""><a href="https://finto.fi/mts/en/">the Metadata thesaurus</a> for object/work types (<a href="#objectWorkType">lido:objectWorkType</a>).</li>
+               </ul>
+            </p>
+            <p>References to linked open vocabularies or authority files can be included in LIDO
+               elements of <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#identifierComplexType">lido:identifierComplexType</a>, e.g. <a href="#actorID">lido:actorID</a>, <a href="#placeID">lido:placeID</a> and <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#conceptID">lido:conceptID</a>. It is recommended to specify the source of the identifier (e.g. "yso") in the <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#source">lido:source</a> attribute.</p>
+            <p>LIDO schema 1.1 recommends to use <a href="https://www.w3.org/2009/08/skos-reference/skos.html#Concept">skos:Concept</a> instead of lido:conceptID when referring to linked open vocabularies. Note that whether
+               using lido:conceptID or skos:Concept for the URI of the concept, the FINNA LIDO profile
+               recommends (and in some contexts requires) to include the label of the concept in
+               <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#term">lido:term</a>.</p>
+         </div>
+         <div id="Extensions_to_LIDO_terminologies">
+            <h3>FINNA terminologies and extensions to LIDO terminologies</h3>
+            <p>LIDO schema allows some terminologies to be determined by application profiles. Terminologies
+               defined by the FINNA LIDO profile are described in this section. The FINNA LIDO profile
+               also allows extending some LIDO terminologies with terms and translations described
+               here, to better answer to the needs of the Finnish institutions and the users of Finna.
+               In the future, some of the terms and translations might be added to the LIDO Terminology.</p>
+            <div id="Extensions_to_LIDO_terminologies__Terminology_for_object_type">
+               <h4>Terminology for Object Type</h4>
+               <p>When referring to hierarchical entities, the FINNA LIDO profile requires the object
+                  type (<a href="#objectType">lido:objectType</a>) within relatedWorkSet/relatedWork/object. The allowed terms are:
+                  <ul>
+                     <li class=""><a href="http://terminology.lido-schema.org/lido01053"><b>collection</b></a> for the collection (the record at the top of the hierarchical structure).</li>
+                     <li class=""><b>parent</b> for the closest parent record in a hierarchical structure, e.g. the series or sub
+                        collection the object belongs to.</li>
+                  </ul>
+               </p>
+            </div>
+            <div id="Extensions_to_LIDO_terminologies__Terminology_for_type_of_inscription_description">
+               <h4>Terminology for Type of Inscription Description</h4>
+               <p>For the type of inscription description (<a href="#inscriptionDescription">lido:inscriptionDescription</a>), following values are allowed:
+                  <ul>
+                     <li class=""><b>technique</b> for the technique used to make the inscription (e.g. carving or embroidery)</li>
+                     <li class=""><b>location</b> for the location of the inscription (e.g. the bottom of the vase)</li>
+                     <li class=""><b>description</b> for the general description of the inscription (e.g. a lion head inside a circle)</li>
+                  </ul>
+               </p>
+            </div>
+            <div id="Extensions_to_LIDO_terminologies__Terminology_for_type_of_object_description_set">
+               <h4>Terminology for Type of Object Description Set</h4>
+               <p>For the type of object description set (<a href="#objectDescriptionSet">lido:objectDescriptionSet</a>), it is recommended to use following values:
+                  <ul>
+                     <li class=""><b>description</b> for descriptive information about the object</li>
+                     <li class=""><b>introduction</b> for more general descriptions of the object in its wider context (e.g. texts written
+                        for exhibitions or blogs)</li>
+                  </ul>
+               </p>
+            </div>
+            <div id="Extensions_to_LIDO_terminologies__Terminology_for_type_of_object_note">
+               <h4>Terminology for Type of Object Note</h4>
+               <p>For the type of object note (<a href="#objectNote">lido:objectNote</a>), there is currently only one allowed value:
+                  <ul>
+                     <li class=""><b>objectWorkType</b> for the type of the object, usually more specifc than the type in <a href="#objectType">lido:objectType</a></li>
+                  </ul>
+               </p>
+            </div>
+            <div id="Extensions_to_LIDO_terminologies__Terminology_for_type_of_resource_description">
+               <h4>Terminology for Type of Resource Description</h4>
+               <p>For the type of resource description (<a href="#resourceDescription">lido:resourceDescription</a>), it is recommended to use following values:
+                  <ul>
+                     <li class=""><b>description</b> for the generic description of the resource</li>
+                     <li class=""><b>displayLink</b> for the name of the resource (e.g. file name, used as link text for the resource
+                        in Finna)</li>
+                     <li class=""><b>colour content</b> for the colour content of the resource (e.g. black and white)</li>
+                  </ul>
+               </p>
+            </div>
+            <div id="Extensions_to_LIDO_terminologies__Extended_terminology_for_type_of_resource_representation">
+               <h4>Extended terminology for Type of Resource Representation</h4>
+               <p>For the type of resource representations (<a href="#resourceRepresentation">lido:resourceRepresentation</a>), it is recommended to use the <a href="http://lido-schema.org/documents/terminology-recommendation.html#resourceRepresentation_type">LIDO Terminology for Type of Resource Representation</a>. Because of the need to provide images in several different sizes and file formats
+                  for different purposes, Finna also supports following type attributes:
+                  <ul>
+                     <li class=""><b>image_thumb</b> for small thumbnail images</li>
+                     <li class=""><b>image_large</b> for large display images</li>
+                     <li class=""><b>image_master</b> for full resolution display images</li>
+                     <li class=""><b>image_original</b> for full resolution download-only images like tiff files</li>
+                  </ul>
+               </p>
+            </div>
+            <div id="Extensions_to_LIDO_terminologies__Finnish_labels_for_event_type">
+               <h4>Finnish labels for Event Type</h4>
+               <p>For event types (<a href="#eventType">lido:eventType</a>), it is recommended to use the <a href="http://lido-schema.org/documents/terminology-recommendation.html#eventType">LIDO Terminology for Event Type</a>. The recommended Finnish labels for event types are:
+                  <ul>
+                     <li class="">luominen (eventType <a href="http://terminology.lido-schema.org/lido00012">"Creation"</a>)</li>
+                     <li class="">valmistus (eventType <a href="http://terminology.lido-schema.org/lido00007">"Production"</a>)</li>
+                     <li class="">valokuvaus (eventType <a href="http://terminology.lido-schema.org/lido01127">"Photography"</a>)</li>
+                     <li class="">suunnittelu / muotoilu (eventType <a href="http://terminology.lido-schema.org/lido00224">"Designing"</a>); both Finnish labels are allowed</li>
+                     <li class="">löytyminen (eventType <a href="http://terminology.lido-schema.org/lido00002">"Finding"</a>)</li>
+                     <li class="">käyttö (eventType <a href="http://terminology.lido-schema.org/lido00011">"Use"</a>)</li>
+                     <li class="">näyttely (eventType <a href="http://terminology.lido-schema.org/lido00225">"Exhibition"</a>)</li>
+                     <li class="">konservointi (eventType <a href="http://terminology.lido-schema.org/lido00402">"Conservation"</a>)</li>
+                  </ul>
+               </p>
+            </div>
+         </div>
+         <div id="Other_controlled_terminologies">
+            <h3>Other controlled terminologies and formats</h3>
+            <p>The FINNA LIDO profile also recommends the use of following controlled terminologies
+               and controlled formats:
+               <ul>
+                  <li class=""><a href="http://www.iana.org/assignments/media-types/">IANA media types</a> for the media formats of digital resources (lido:formatResource attribute of <a href="#linkResource">lido:linkResource</a>).</li>
+                  <li class=""><a href="https://creativecommons.org/about/cclicenses/">Creative Common Licenses</a> and <a href="https://rightsstatements.org/">Rights Statements</a> for rights of digital resources (<a href="#rightsResource">lido:rightsResource</a>).</li>
+                  <li class=""><a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601: Date and time format</a> for index elements of dates (<a href="#earliestDate">lido:earliesDate</a> and <a href="#latestDate">lido:latestDate</a>). The specific recommended formats are:
+                     							
+                     <li class="indent2">[-]CCYY (year only),</li>
+                     <li class="indent2">[-]CCYY-MM (year and month),</li>
+                     <li class="indent2">[-]CCYY-MM-DD (year, month and day) and</li>
+                     <li class="indent2">[-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] (year, month, day and time).</li>
+                  </li>
+                  <li class=""><a href="https://www.iso.org/iso-639-language-code">ISO 639-1 two-letter language codes</a> for the <a href="#Language_of_the_metadata">language of the metadata</a> (xml:lang)</li>
+                  <li class=""><a href="https://www.iso.org/iso-639-language-code">ISO 639-2 or ISO-639-3 three-letter language codes</a> for the <a href="#Language_of_the_object">language of the object</a></li>
+               </ul>
+            </p>
+         </div>
+         <h2>Languages</h2>
+         <div id="Language_of_the_metadata">
+            <h3>Language of the metadata</h3>
+            <p>Finna.fi is a multilingual platform, and it is strongly recommended to provide the
+               metadata in all available languages. Although Finna.fi is currently available in four
+               languages, Finnish, Swedish, English and Northern Sami, metadata in other languages
+               can still be displayed and made available to users e.g. via Finna API.</p>
+            <p>In LIDO Schema v1.1, it is mandatory to specify the language of the metadata in the
+               xml:lang attribute of <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#descriptiveMetadata">lido:descriptiveMetadata</a>, which aggregates the descriptive metadata of the record and can be repeated for
+               fully multilingual resources, once for each language. In Finna, materials are typically
+               only partly multilingual, which is why we recommend to always specify the language
+               in the xml:lang attribute of each individual LIDO element containing displayable text
+               or other language-specific information.</p>
+            <p>The value of the xml:lang attribute should be a <a href="https://www.iso.org/iso-639-language-code">ISO 639-1 two-letter language code</a>.</p>
+         </div>
+         <div id="Language_of_the_object">
+            <h3>Language of the object</h3>
+            <p>If the cultural heritage object itself contains text or other information in one or
+               several languages, it is recommended to specify each language within <a href="#classification">lido:classification</a>, marked with attribute type="language". While this type is not provided in LIDO Terminology,
+               there is currently no more appropriate way to describe the language of the object
+               in LIDO. The lido:term element should contain a <a href="https://www.iso.org/iso-639-language-code">ISO 639-2 or ISO-639-3 three-letter language code</a>.</p>
+         </div>
+         <div id="Language_of_digital_resources">
+            <h3>Language of digital resources</h3>
+            <p>Links to the digital representations of the object and other web resources provided
+               in LIDO elements of <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#webResourceComplexType">lido:webResourceComplexType</a> may also be available in multiple languages. The xml:lang attribute may be included
+               to specify the language of the resource, allowing users to view the resources in their
+               preferred language.</p>
+         </div>
+      </section>
+      <section class="guideline_elements" id="All_changes_to_the_schema">
+         <h2>All changes to the schema</h2>
+         <div class="ap-unit" id="actorID">
+            <h2>&lt;actorID&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An identifier for the actor.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#actorID">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">actor in actorInRoleComplexType</li>
+                     <li class="">actor in actorSetComplexType</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">pref (optional)</li>
+                        <li class=""><b>type (required)</b><li class="indent1">See <a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#actorID">LIDO Terminology for Type of Identifier</a>.</li>
+                        </li>
+                        <li class="">source (optional – recommended)
+                           									
+                           <li class="indent1">The source of the actor identifier. Usually the source code of the authority file,
+                              chosen for example from the list of <a href="https://www.loc.gov/standards/sourcelist/name-title.html">Name and Title Authority Source Codes</a>.</li>
+                        </li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to choose a URI from the <a href="https://finto.fi/finaf/en/">KANTO – National Agent Data</a> or another linked open authority file. When using KANTO actor URIs, it is recommended
+                           to use source attribute "finaf".</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <li class="">–</li>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">For KANTO actors with source attribute "finaf", the ID should begin with "http://urn.fi/URN:NBN:fi:au:finaf:"".</li>
+                        <li class="">For KANTO actor URIs, the type attribute <a href="http://terminology.lido-schema.org/lido00099">URI</a> should be used.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">It is recommended to use the source attribute to identify the source for the ID.</li>
+                        <li class="">For KANTO actor URIs. the source attribute "finaf" is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:actorID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="finaf"&gt;http://urn.fi/URN:NBN:fi:au:finaf:000057712&lt;lido:actorID&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="classification">
+            <h2>&lt;classification&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element assigning an object/work to a classification or other vocabulary
+                     scheme that groups similar objects together on the basis of defined characteristics.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#classification">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">classificationWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">skos:Concept (optional)</li>
+                        <li class="">conceptID (optional)</li>
+                        <li class=""><b>term (required)</b></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">For the language of the object, use type attribute "language"; the term should contain
+                           a <a href="https://www.iso.org/iso-639-language-code">ISO 639-2 or ISO-639-3 three-letter language code</a>. It is strongly recommended to describe the language of textual materials.</li>
+                        <li class="">Otherwise, type attribute is optional and chosen from the <a href="http://lido-schema.org/documents/terminology-recommendation.html#classification_type">LIDO Terminology for Type of Classification</a>.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: term is optional).</li>
+                        <li class="">Values of type attribute (LIDO: no type exists for the language of the object).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">Term is a required element within classification.</li>
+                        <li class="">If the type attribute of the classification element is "language", the term element
+                           should contain a three-letter language code.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">Classification is a recommended element.</li>
+                        <li class="">A classification element with type "language" is strongly recommended for textual
+                           objects.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:classification lido:type="language"&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term"&gt;fin&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:classification&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="earliestDate">
+            <h2>&lt;earliestDate&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the expression of an exact or estimated date, for instance a
+                     year or calendar date, that delimits the beginning of a date span.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#earliestDate">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">date</li>
+                     <li class="">rightsDate</li>
+                     <li class="">vitalDatesActor</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>type (required)</b><li class="indent1">See <a href="http://lido-schema.org/documents/terminology-recommendation.html#earliestDate_type">LIDO Terminology for Type of Earliest Date</a>.</li>
+                        </li>
+                        <li class="">source (optional)</li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The date should comply to the ISO 8601 formats:</li>
+                        <li class="indent2">[-]CCYY (year only)</li>
+                        <li class="indent2">[-]CCYY-MM (year and month)</li>
+                        <li class="indent2">[-]CCYY-MM-DD (year, month and day)</li>
+                        <li class="indent2">[-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] (year, month, day and time)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Allowed formats (LIDO: ISO 8601 recommended).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">Allowed formats:</li>
+                        <li class="indent2">[-]CCYY</li>
+                        <li class="indent2">[-]CCYY-MM</li>
+                        <li class="indent2">[-]CCYY-MM-DD</li>
+                        <li class="indent2">[-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm]</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:earliestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;2024-09-01&lt;/lido:earliestDate&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="event">
+            <h2>&lt;event&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A wrapper for information about the event the object/work participated in or was present
+                     at, for example, its creation or acquisition.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#event">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#eventSet">eventSet</a></li>
+                     <li class="">relatedEvent</li>
+                     <li class="">subjectEvent</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">eventID (optional)</li>
+                        <li class="">owl:sameAs (optional)</li>
+                        <li class=""><b><a href="#eventType">eventType</a> (required)</b></li>
+                        <li class="">roleInEvent (optional)</li>
+                        <li class="">eventName (optional)</li>
+                        <li class="">eventActor (optional - recommended)</li>
+                        <li class="">culture (optional)</li>
+                        <li class="">eventDate (optional - recommended)</li>
+                        <li class="">periodName (optional)</li>
+                        <li class=""><a href="#eventPlace">eventPlace</a> (optional - recommended)</li>
+                        <li class="">eventMethod (optional)</li>
+                        <li class="">eventMaterialsTech (optional)</li>
+                        <li class="">thingPresent (optional)</li>
+                        <li class="">relatedEventSet (optional)</li>
+                        <li class="">eventDescriptionSet (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">-</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to include at least 1 eventSet containing 1 event, describing the
+                           object history.</li>
+                        <li class="">The type of the event should be specified in <a href="#eventType">eventType</a>.</li>
+                        <li class="">It is recommended to describe</li>
+                        <li class="indent2">persons or entities participating at the event using eventActor.</li>
+                        <li class="indent2">when the event took place using eventDate</li>
+                        <li class="indent2">where the event took place using <a href="#eventPlace">eventPlace</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 0–1)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">An event should have a non-empty event type term.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">eventActor is a recommended element.</li>
+                        <li class="">eventDate is a recommended element.</li>
+                        <li class="">eventPlace is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:eventType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://terminology.lido-schema.org/lido00012"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="fi"&gt;valmistus&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:eventType&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="eventDate">
+            <h2>&lt;eventDate&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A wrapper for structured information about the date or range of dates the event in
+                     focus took place.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#eventDate">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#event">event</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayDate (optional - recommended)</li>
+                        <li class="">date (optional - recommended)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">-</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to provide the date both as human-readable text in displayDate and
+                           in machine-readable form in date.</li>
+                        <li class="">The lang attribute is recommended in displayDate.</li>
+                        <li class="">Within date, use <a href="#earliestDate">earliestDate</a> for the beginning of the timespan and <a href="#latestDate">latestDate</a> for the end of the timespan.</li>
+                        <li class="">Note that eventDate or date elements cannot be repeated. If the event took place in
+                           several successive periods of time, they can be described in displayDate, but the
+                           timespan in date element should cover all periods.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <p>-</p>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">eventDate/displayDate is a recommended element.</li>
+                        <li class="">The lang attribute is recommended in eventDate/displayDate.</li>
+                        <li class="">eventDate/date is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:eventDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayDate xml:lang="fi"&gt;1910–1912, 1915&lt;/lido:displayDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:date&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:earliestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;1910-01-01&lt;/lido:earliestDate&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:latestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;1915-12-31&lt;/lido:latestDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:date&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:eventDate&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:eventDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayDate xml:lang="fi"&gt;23.1.2025&lt;/lido:displayDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:date&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:earliestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;2025-23-01&lt;/lido:earliestDate&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:latestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;2025-23-01&lt;/lido:latestDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:date&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:eventDate&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="eventPlace">
+            <h2>&lt;eventPlace&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information indicating the place or location where an object/work
+                     was associated with a particular event.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#eventPlace">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#event">event</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayPlace (optional - recommended)</li>
+                        <li class=""><a href="#place">place</a> (optional - recommended)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is required to include the name of the place either in displayPlace or in place/namePlaceSet/appellationValue.
+                           Using both is recommended.</li>
+                        <li class="">It is recommended to provide both a displayPlace element gathering information from
+                           all place and partOfPlace elements, and a place element with more granular information.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: displayPlace and place/namePlaceSet are both optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">It is required to have either a non-empty displayPlace element, or a non-empty place/namePlaceSet/appellationValue.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">displayPlace is a recommended element.</li>
+                        <li class="">place is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:eventPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayPlace&gt;Käenkuja 3, Helsinki&lt;/lido:displayPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:place&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:appellationValue lido:label="katuosoite" xml:lang="fi"&gt;Käenkuja 3&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:gml&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;gml:Point&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;gml:pos&gt;60.1852702 24.9618065&lt;/gml:pos&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/gml:Point&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:gml&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p94137&lt;lido:placeID&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;lido:appellationValue lido:label="kunta" xml:lang="fi"&gt;Helsinki&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:place&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:eventPlace&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="eventSet">
+            <h2>&lt;eventSet&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of display and index elements for an event the object/work participated in or
+                     was present at.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#eventSet">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">eventWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayEvent (optional)</li>
+                        <li class=""><b><a href="#event">event</a> (required)</b></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">sortorder (optional)</li>
+                        <li class="">mostNotableEvent (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <p>-</p>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: event is optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">event is a required element within eventSet.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">eventSet is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:eventSet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:event&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;...&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:event&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:eventSet&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="eventType">
+            <h2>&lt;eventType&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the particular kind of event the object/work participated in
+                     or was present at.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#eventType">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#event">event</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">skos:Concept (optional)</li>
+                        <li class="">conceptID (optional)</li>
+                        <li class=""><b>term (required)</b></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">-</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">Choose an event type from <a href="http://lido-schema.org/documents/terminology-recommendation.html#eventType">LIDO Terminology for Event Type</a>.</li>
+                        <li class="">As long as the terminology does not include Finnish labels, recommended Finnish labels
+                           for most common event types are listed in section <a href="#Extensions_to_LIDO_terminologies__Finnish_labels_for_event_type">Finnish labels for event type</a>.</li>
+                        <li class="">It is recommended to specify the language of the term by using the lang attribute
+                           in term.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: term is optional)</li>
+                        <li class="">Event type terminology (LIDO: <a href="http://lido-schema.org/documents/terminology-recommendation.html#eventType">LIDO Terminology for Event Type</a> does not include Finnish labels).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">An event should have a non-empty event type term.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:eventType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://terminology.lido-schema.org/lido00012"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="fi"&gt;valmistus&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:eventType&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="inscriptionDescription">
+            <h2>&lt;inscriptionDescription&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A text element for a description of an inscription, including description identifier,
+                     descriptive note of the inscription and sources.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#inscriptionDescription">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">inscription</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">descriptiveNoteID (optional)</li>
+                        <li class=""><b>descriptiveNoteValue (required)</b></li>
+                        <li class="">sourceDescriptiveNote (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">If type attribute is in use, it should be one from the <a href="#Extensions_to_LIDO_terminologies__Terminology_for_type_of_inscription_description">terminology for type of inscription description</a>.</li>
+                        <li class="">It is recommended to specify the language of the description by using the lang attribute
+                           of descriptiveNoteValue.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: descriptiveNoteValue is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">A non-empty descriptiveNoteValue is required.</li>
+                        <li class="">If type attribute is is use, it should be one of "technique", "location" or "description".</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">The lang attribute in descriptiveNoteValue element is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:inscriptionDesription&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:descriptiveNoteValue lido:type="technique" xml:lang="en"&gt;carving&lt;/lido:descriptiveNoteValue&gt;</p>
+                  <p>&lt;lido:descriptiveNoteValue lido:type="location" xml:lang="en"&gt;the handle&lt;/lido:descriptiveNoteValue&gt;</p>
+                  <p>&lt;lido:descriptiveNoteValue lido:type="description" xml:lang="en"&gt;letters AW inside
+                     a circle&lt;/lido:descriptiveNoteValue&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:inscriptionDescription&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="latestDate">
+            <h2>&lt;latestDate&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the expression of the exact or approximate date, for instance
+                     a year or calendar date, that delimits the end of a date span.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#latestDate">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">date</li>
+                     <li class="">rightsDate</li>
+                     <li class="">vitalDatesActor</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>type (required)</b><li class="indent1">See <a href="http://lido-schema.org/documents/terminology-recommendation.html#latestDate_type">LIDO Terminology for Type of Latest Date</a></li>
+                        </li>
+                        <li class="">source (optional)</li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The date should comply to the ISO 8601 formats:</li>
+                        <li class="">[-]CCYY (year only)</li>
+                        <li class="">[-]CCYY-MM (year and month)</li>
+                        <li class="">[-]CCYY-MM-DD (year, month and day)</li>
+                        <li class="">[-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] (year, month, day and time)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Allowed formats (LIDO: ISO 8601 recommended).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">Allowed formats:</li>
+                        <li class="">[-]CCYY</li>
+                        <li class="">[-]CCYY-MM</li>
+                        <li class="">[-]CCYY-MM-DD</li>
+                        <li class="">[-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm]</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:latestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;2000-12-31&lt;/lido:latestDate&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="lidoRecID">
+            <h2>&lt;lidoRecID&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A unique LIDO record identification.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#lidoRecID">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">lido</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">pref (optional)</li>
+                        <li class=""><b>type (required)</b><li class="indent1">See <a href="http://lido-schema.org/documents/terminology-recommendation.html#identifier_type">LIDO Terminology for Type of Identifier</a></li>
+                        </li>
+                        <li class="">source (optional)</li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <p>The identifier must be unique in the local system.</p>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 1–unbounded).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">Non-empty value is required.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"&gt;023-2341497100974374083498&lt;/lido:lidoRecID&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="linkResource">
+            <h2>&lt;linkResource&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A text element providing a reference to the resource in the worldwide web environment,
+                     usually a stable URI/URL.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#linkResource">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#resourceRepresentation">resourceRepresentation</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">codecResource (optional)</li>
+                        <li class="">pref (optional)</li>
+                        <li class=""><b>formatResource (required)</b><li class="indent1">Refer to <a href="http://www.iana.org/assignments/media-types/">IANA media types</a></li>
+                        </li>
+                        <li class="">xml:lang (optional)</li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The linkResource element must contain a valid URI/URL.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Attributes (LIDO: formatResource is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">It is required to specify the format of the resource in formatResource attribute.</li>
+                        <li class="">The value of linkResource should start with "http" or "https".</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:linkResource lido:formatResource="image/jpeg"&gt;https://linktoimagefile&lt;/lido:linkResource&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="objectDescriptionSet">
+            <h2>&lt;objectDescriptionSet&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of descriptive information about the object/work, including description identifier,
+                     descriptive note and source of the description.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#objectDescriptionSet">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">objectDescriptionWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">descriptiveNoteID (optional)</li>
+                        <li class=""><b>descriptiveNoteValue (required)</b></li>
+                        <li class="">sourceDescriptiveNote (optional)</li>
+                        <li class="">objectDescriptionRights (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The value of the type attribute should be chosen from the <a href="#Extensions_to_LIDO_terminologies__Terminology_for_type_of_object_description_set">terminology for type of object description set</a>.</li>
+                        <li class="">It is recommended to specify the language of the description by using the lang attribute
+                           in descriptiveNoteValue.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: descriptiveNoteValue is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">objectDescriptionSet must contain at least one non-empty descriptiveNoteValue.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">objectDescriptionSet is a recommended element.</li>
+                        <li class="">The lang attribute in descriptiveNoteValue element is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:objectDescriptionSet type="description"&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:descriptiveNoteValue xml:lang="en"&gt;This is a description of the object.&lt;/lido:descriptiveNoteValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:descriptiveNoteValue xml:lang="fi"&gt;Tämä on objektin kuvaus suomeksi.&lt;/lido:descriptiveNoteValue&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectDescriptionSet&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:objectDescriptionSet type="introduction"&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:descriptiveNoteValue xml:lang="en"&gt;A more extensive introductory text about
+                     the object&lt;/lido:descriptiveNoteValue&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectDescriptionSet&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="objectNote">
+            <h2>&lt;objectNote&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A text element for further descriptive information about the object/work in focus,
+                     including actor, and other information as necessary for clarity.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#objectNote">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">object</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">xml:lang (optional)</li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The element is required when the object refers to a hierarchical entity (see <a href="#relatedWork">relatedWork</a>).</li>
+                        <li class="">Use the type attribute "objectWorkType" for the type of the object, usually more specific
+                           than the type in <a href="#objectType">objectType</a>.</li>
+                        <li class="">The lang attribute is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Values of type attribute (LIDO: no recommended values).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">If type attribute is used, it should be "objectWorkType".</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">The lang attribute is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:objectNote lido:type="objectWorkType" xml:lang="en"&gt;series&lt;/lido:objectNote&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="objectType">
+            <h2>&lt;objectType&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the particular kind of object or work in focus.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#objectType">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <ul>
+                        <li class="">object</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">skos:Concept(optional)</li>
+                        <li class="">conceptID (optional)</li>
+                        <li class=""><b>term (required)</b></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">-</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The element is required when the object refers to a hierarchical entity (see <a href="#relatedWork">relatedWork</a>).</li>
+                        <li class="">If the object refers to a collection, use object type <a href="http://terminology.lido-schema.org/lido01053">collection</a>.</li>
+                        <li class="">If the object refers to the closest parent in a hierarchical structure, use object
+                           type "parent".</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: term is optional).</li>
+                        <li class="">Data values (LIDO: no type for "parent").</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">A non-empty term is required.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:objectType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://terminology.lido-schema.org/lido01053"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="en"&gt;collection&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectType&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:objectType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="en"&gt;parent&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectType&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="objectWorkType">
+            <h2>&lt;objectWorkType&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the specific kind of the object/work in focus.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#objectWorkType">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">objectWorkTypeWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">skos:Concept (optional)</li>
+                        <li class="">conceptID (optional)</li>
+                        <li class=""><b>term (required)</b></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to choose a concept from <a href="https://finto.fi/mts/en/">the Metadata thesaurus</a>, when possible. The label of the concept should be provided in term element.</li>
+                        <li class="">It is recommended to place the most specific term in the first objectWorkType element.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: term is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">At least one objectWorkType with a non-empty term is required.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:objectWorkType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://urn.fi/URN:NBN:fi:au:mts:m5022"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="fi"&gt;esine&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectWorkType&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:objectWorkType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="fi"&gt;3D-malli&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectWorkType&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;lido:objectWorkType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://urn.fi/URN:NBN:fi:au:mts:m5028"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="fi"&gt;malli&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:objectWorkType&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="place">
+            <h2>&lt;partOfPlace&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information about a place that is the broader context for the
+                     place in focus, such as the district, state, or nation to which a city belongs.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#partOfPlace">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#partOfPlace">partOfPlace</a></li>
+                     <li class=""><a href="#place">place</a></li>
+                     <li class="">repositoryLocation</li>
+                     <li class="">vitalPlaceActor</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><a href="#placeID">placeID</a> (optional - recommended)</li>
+                        <li class="">owl:sameAs (optional)</li>
+                        <li class="">namePlaceSet (optional - recommended)</li>
+                        <li class="">gml (optional)</li>
+                        <li class="">partOfPlace (optional)</li>
+                        <li class="">placeClassification (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">politicalEntity (optional)</li>
+                        <li class="">geographicalEntity (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to include the URI of the place in <a href="#placeID">placeID</a>. Make sure that placeID is used in the actual level (place or partOfPlace) the URI
+                           describes.</li>
+                        <li class="">The name of the place in namePlaceSet/appellationValue should reflect the broader
+                           context of the location described by this partOfPlace element (e.g. the name of the
+                           city or country).</li>
+                        <li class="">It is recommended to use the label attribute of namePlaceSet/appellationValue for
+                           the type of the place (e.g. "city" or "country"). The type may be repeated in placeClassification
+                           as well.</li>
+                        <li class="">If there are precise coordinates for the place, they should be included in the gml
+                           element of the containing place element, not in the gml element of partOfPlace.</li>
+                        <li class="">It is not allowed to repeat partOfPlace element, but partOfPlace may contain another
+                           partOfPlace for even broader contexts of the place.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 0–unbounded).</li>
+                        <li class="">Values of label attribute (LIDO: no recommendation for the label attribute of namePlaceSet/appellationValue).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">partOfPlace is a recommended element within place.</li>
+                        <li class="">placeID is a recommended element.</li>
+                        <li class="">namePlaceSet is a recommended element.</li>
+                        <li class="">The label attribute of namePlaceSet/apellationValue is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:place&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:appellationValue lido:label="katuosoite" xml:lang="fi"&gt;Käenkuja 3&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:gml&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;gml:Point&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;gml:pos&gt;60.1852702 24.9618065&lt;/gml:pos&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/gml:Point&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:gml&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p94137&lt;lido:placeID&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:appellationValue lido:label="kunta" xml:lang="fi"&gt;Helsinki&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p94426&lt;lido:placeID&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;lido:appellationValue lido:label="valtio" xml:lang="fi"&gt;Suomi&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:partOfPlace&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:place&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="place">
+            <h2>&lt;place&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A wrapper for identifying and indexing a place.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#place">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#eventPlace">eventPlace</a></li>
+                     <li class=""><a href="#subjectPlace">subjectPlace</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><a href="#placeID">placeID</a> (optional - recommended)</li>
+                        <li class="">owl:sameAs (optional)</li>
+                        <li class="">namePlaceSet (optional - recommended)</li>
+                        <li class="">gml (optional - recommended)</li>
+                        <li class="">partOfPlace (optional - recommended)</li>
+                        <li class="">placeClassification (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">politicalEntity (optional)</li>
+                        <li class="">geographicalEntity (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to include the URI of the place in <a href="#placeID">placeID</a>. Make sure that placeID is used in the actual level (place or partOfPlace) the URI
+                           describes.</li>
+                        <li class="">The name of the place in namePlaceSet/appellationValue should reflect the most precise
+                           location only (e.g. street address). Use partOfPlace for the broader names of the
+                           location (i.e. the name of the city or country).</li>
+                        <li class="">It is recommended to use namePlaceSet even if the name of the place is also included
+                           in the displayPlace element of the containing <a href="#eventPlace">eventPlace</a> or <a href="#subjectPlace">subjectPlace</a>. Either displayPlace or namePlaceSet is required.</li>
+                        <li class="">It is recommended to use the label attribute of namePlaceSet/appellationValue for
+                           the type of the place (e.g. "city" or "country"). The type may be repeated in placeClassification
+                           as well.</li>
+                        <li class="">It is recommended to include the coordinates of the place in gml.</li>
+                        <li class="">It is recommended to include at least one broader context for the place in partOfPlace
+                           element.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: namePlaceSet and displayPlace are both optional).</li>
+                        <li class="">Values of label attribute (LIDO: no recommendation for the label attribute of namePlaceSet/appellationValue).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">If the containing eventPlace/subjectPlace element has no displayPlace element, at
+                           least one namePlaceSet/appellationValue is required.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">place is a recommended element.</li>
+                        <li class="">placeID is a recommended element.</li>
+                        <li class="">namePlaceSet is a recommended element.</li>
+                        <li class="">The label attribute of namePlaceSet/apellationValue is recommended.</li>
+                        <li class="">gml is a recommended element.</li>
+                        <li class="">partOfPlace is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:place&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:appellationValue lido:label="katuosoite" xml:lang="fi"&gt;Käenkuja 3&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:gml&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;gml:Point&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;gml:pos&gt;60.1852702 24.9618065&lt;/gml:pos&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/gml:Point&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:gml&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p94137&lt;lido:placeID&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:appellationValue lido:label="kunta" xml:lang="fi"&gt;Helsinki&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:partOfPlace&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:place&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="placeID">
+            <h2>&lt;placeID&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An identifier for the place.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#placeID">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">partOfPlace</li>
+                     <li class=""><a href="#place">place</a></li>
+                     <li class="">repositoryLocation</li>
+                     <li class="">vitalPlaceActor</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">pref (optional)</li>
+                        <li class=""><b>type (required)</b><li class="indent1">See <a href="http://lido-schema.org/documents/terminology-recommendation.html#identifier_type">LIDO Terminology for Type of Identifier</a>.</li>
+                        </li>
+                        <li class="">source (optional – recommended)
+                           									
+                           <li class="indent1">The source of the place identifier. Usually the source code of the open authority
+                              file, chosen for example from the lists of <a href="https://www.loc.gov/standards/sourcelist/subject.html">Subject Heading and Term Source Codes</a> or <a href="https://www.loc.gov/standards/sourcelist/cartographic-data.html">Cartographic Data Source Codes</a>.</li>
+                           <li class="indent1">For the Finnish Herigage Agency's register of archaeological sites (muinaisjäännösrekisteri)
+                              use source code "mjr" and for the register of built heritage (rakennusperintörekisteri)
+                              use code "rpr".</li>
+                        </li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to choose a URI from the <a href="https://finto.fi/yso-paikat/en/">YSO places vocabulary</a> or another linked open authority file.</li>
+                        <li class="">It is recommended to use the source attribute to specify the source. For YSO place
+                           URIs, use source attibute "yso".</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <li class="">–</li>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">For YSO places with source attribute "yso", the ID should begin with "http://www.yso.fi/onto/yso/"".</li>
+                        <li class="">For YSO place URIs, the type attribute <a href="http://terminology.lido-schema.org/lido00099/">URI</a> should be used.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">placeID is a recommended element.</li>
+                        <li class="">It is recommended to use the source attribute to identify the source for the ID.</li>
+                        <li class="">For YSO place URIs, the source attribute "yso" is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p109572&lt;lido:placeID&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="recordRights">
+            <h2>&lt;recordRights&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information about rights regarding the content provided in this
+                     LIDO record.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#recordRights">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">recordWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>rightsType (required)</b></li>
+                        <li class="">rightsDate (optional)</li>
+                        <li class="">rightsHolder (optional)</li>
+                        <li class="">creditLine (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The license of the LIDO record should be specified in rightsType/conceptID. For records
+                           to be published in Finna, the license <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0 Universal</a> is required.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 0–unbounded).</li>
+                        <li class="">Required elements (LIDO: rightsType is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">There must be a rightsType with a non-empty conceptID.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:recordRights&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:rightsType&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"&gt;https://creativecommons.org/publicdomain/zero/1.0/&lt;/lido:conceptID&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:term&gt;CC0&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:rightsType&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:recordRights&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="recordSource">
+            <h2>&lt;recordSource&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of elements identifying the source of information in this LIDO record, generally
+                     the repository or other institution.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#recordSource">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">recordWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">legalBodyID (optional)</li>
+                        <li class="">owl:sameAS (optional)</li>
+                        <li class=""><b>legalBodyName (required)</b></li>
+                        <li class="">legalBodyWeblink (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <p>-</p>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: legalBodyName is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">There should be at least one non-empty legalBodyName/appellationValue.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:recordSource&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:legalBodyName&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:appellationValue xml:lang="fi"&gt;Museovirasto&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:legalBodyName&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:recordSource&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="relatedWork">
+            <h2>&lt;relatedWork&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A wrapper for display and reference elements of an object or work related to the object/work
+                     in focus.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#relatedWork">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#relatedWorkSet">relatedWorkSet</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>displayObject (required)</b></li>
+                        <li class="">object (optional; <b>required for hierarchical related objects</b>)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">-</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to specify the language of the display name by using the lang attribute
+                           in dislayObject.</li>
+                        <li class="">It is recommended to describe the object identifier in object/objectID.</li>
+                        <li class="">For hierarchical related objects, the object element is required with following information:</li>
+                        <li class="indent2">objectID for the identifier of the related object.</li>
+                        <li class="indent2"><a href="#objectType">objectType/term</a> for the type of the related object.</li>
+                        <li class="indent2"><a href="#objectNote">objectNote</a> with type attribute "objectWorkType" for the work type of the related object.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 0-1)</li>
+                        <li class="">Required elements (LIDO: displayObject and object are optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">A non-empty displayObject is required.</li>
+                        <li class="">If there is a non-empty object/objectID and object/objectType/term is "collection"
+                           or "parent", there must be a non-empty object/objectNote with type attribute "objectWorkType".</li>
+                        <li class="">If the object/objectType/term is "parent", there must be a non-empty object/objectID.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">The lang attribute in displayObject is recommended.</li>
+                        <li class="">The object/objectID element is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:relatedWork&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayObject xml:lang="fi"&gt;Memoria 2 = Ensimmäinen juhlapuku&lt;/lido:displayObject&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:object&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:objectID lido:type="http://terminology.lido-schema.org/lido00099"&gt;URN:ISBN:951-771-872-1&lt;/lido:objectID&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:object&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:relatedWork&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:relatedWork&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayObject xml:lang="en"&gt;Letters sent by Jean Sibelius&lt;/lido:displayObject&gt;</p>
+                  <p>&lt;lido:displayObject xml:lang="fi"&gt;Jean Sibeliuksen lähettämät kirjeet&lt;/lido:displayObject&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:object&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:objectID lido:type="http://terminology.lido-schema.org/lido00100"&gt;7886c89d-8ded-4478-1951c8&lt;/lido:objectID&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:objectType&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:term xml:lang="en"&gt;parent&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:objectType&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:objectNote lido:type="objectWorkType" xml:lang="en"&gt;series&lt;/lido:objectWorkType&gt;</p>
+                  <p>&lt;lido:objectNote lido:type="objectWorkType" xml:lang="fi"&gt;sarja&lt;/lido:objectWorkType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:object&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:relatedWork&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="relatedWorkRelType">
+            <h2>&lt;relatedWorkRelType&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the kind of relationship between the object/work in focus and
+                     the related object or work.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#relatedWorkRelType">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class=""><a href="#relatedWorkSet">relatedWorkSet</a></li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">skos:Concept (optional)</li>
+                        <li class="">conceptID (optional)</li>
+                        <li class=""><b>term (required)</b></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">-</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">Choose a concept from <a href="http://lido-schema.org/documents/terminology-recommendation.html#relatedWorkRelType">LIDO Terminology for Related Work Relation Type</a>. The label of the concept should be provided in term element.</li>
+                        <li class="">Use the most appropriate relation type. If you wish to display the relationship in
+                           other terms, you can use the label attribute of displayObject (see <a href="#relatedWork">relatedWork</a>).</li>
+                        <li class="">For hierarchical relationships, use the relationship type <a href="http://terminology.lido-schema.org/lido00574">is part of</a> to refer to parent records.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 0-1)</li>
+                        <li class="">Required elements (LIDO: term is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">A relatedWorkRelType should have a non-empty term.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:relatedWorkRelType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://terminology.lido-schema.org/lido00574"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="en"&gt;is part of&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:relatedWorkRelType&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:relatedWorkRelType&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;skos:Concept rdf:about="http://terminology.lido-schema.org/lido00626"/&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="en"&gt;is reproduced in&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:relatedWorkRelType&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="relatedWorkSet">
+            <h2>&lt;relatedWorkSet&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information about an object or work, or a group of objects or
+                     works related to the object/work in focus, including the kind of relationship between
+                     them. May include bibliographic objects in which the object/work is documented or
+                     mentioned.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#relatedWorkSet">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">relatedWorksWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayRelatedWork (optional)</li>
+                        <li class=""><b>relatedWork (required)</b></li>
+                        <li class=""><b>relatedWorkRelType (required)</b></li>
+                        <li class="">sourceRelatedWorkSet (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">Use <a href="#relatedWork">relatedWork/displayObject</a> for the name of the related work.</li>
+                        <li class="">Use <a href="#relatedWork">relatedWork/object</a> for the identifier and the type of the related work. For hierarchical related objects,
+                           these are required.</li>
+                        <li class="">Use <a href="#relatedWorkRelType">relatedWorkRelType</a> for the type of the relationship.</li>
+                        <li class="">For hierarchical related objects, include two relatedWorkSet elements:</li>
+                        <li class="indent2">a relatedWorkSet with relatedWork/object/objectType/term "parent" that refers to the
+                           closest parent record in the hierarchy</li>
+                        <li class="indent2">a relatedWorkSet with relatedWork/object/objectType/term "collection" that refers
+                           to the record in the top of the hierarchy (might be the same as parent)</li>
+                        <li class="">Note that if the object itself is at the top of the hierarchy, it is still necessary
+                           to include a relatedWorkSet with relatedWork/object/objectType/term "collection" that
+                           refers to the record itself.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: relatedWork and relatedWorkRelType are optional; no requirements
+                           for hierarchical related objects)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">If there is a relatedWorkSet with relatedWork/object/objectType/term "parent", there
+                           must also be a relatedWorkSet with relatedWork/object/objectType/term "collection".</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:relatedWorkSet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:relatedWork&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:displayObject xml:lang="en"&gt;Letters sent by Jean Sibelius&lt;/lido:displayObject&gt;</p>
+                  <p>&lt;lido:displayObject xml:lang="fi"&gt;Jean Sibeliuksen lähettämät kirjeet&lt;/lido:displayObject&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:object&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:objectID lido:type="http://terminology.lido-schema.org/lido00100"&gt;7886c89d-8ded-4478-1951c8&lt;/lido:objectID&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:objectType&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;lido:term xml:lang="en"&gt;parent&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/lido:objectType&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:objectNote lido:type="objectWorkType" xml:lang="en"&gt;series&lt;/lido:objectWorkType&gt;</p>
+                  <p>&lt;lido:objectNote lido:type="objectWorkType" xml:lang="fi"&gt;sarja&lt;/lido:objectWorkType&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:object&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:relatedWork&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:relatedWorkRelType&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;skos:Concept rdf:about="http://terminology.lido-schema.org/lido00574"/&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:term xml:lang="en"&gt;is part of&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:relatedWorkRelType&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:relatedWorkSet&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="repositorySet">
+            <h2>&lt;repositorySet&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of elements for the identification, name and location of the repository that
+                     is responsible for the object/work in focus, or the geographic place where a stationary
+                     object/work, such as a building, is currently or was formerly located.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#repositorySet">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">repositoryWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayRepository (optional)</li>
+                        <li class="">repositoryName (optional)</li>
+                        <li class="">workID (optional)</li>
+                        <li class="">repositoryLocation (optional)</li>
+                        <li class="">sourceRepositorySet (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">There should be one repositorySet including a workID element, containing an unambiguous
+                           identification number assigned to the object.</li>
+                        <li class="">When repeating repositorySet, choose a type attribute from the <a href="http://lido-schema.org/documents/terminology-recommendation.html#repositorySet_type">LIDO Terminology for Type of Repository Set</a>. For the current location of the object such as a public immovable work of art, use
+                           type attribute <a href="http://terminology.lido-schema.org/lido01018">Current location</a>.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <p>Cardinality (LIDO: 0–unbounded).</p>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">At least one repositorySet with a non-empty workID is required.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:repositorySet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:workID lido:type="http://terminology.lido-schema.org/lido00113"&gt;AG2004:10&lt;lido:workID&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:repositorySet&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:repositorySet lido:type="http://terminology.lido-schema.org/lido01018"&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayRepository xml:lang="en"&gt;The work is situated in the main lobby of the
+                     Parliament House (Mannerheimintie 30, Helsinki).&lt;lido:displayRepository&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;repositoryLocation&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:appellationValue lido:label="katuosoite" xml:lang="fi"&gt;Mannerheimintie 30&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p94137&lt;lido:placeID&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;lido:appellationValue lido:label="kunta" xml:lang="fi"&gt;Helsinki&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/repositoryLocation&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:repositorySet&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="resourceDescription">
+            <h2>&lt;resourceDescription&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A text element for the description of the spatial, chronological, or contextual aspects
+                     of the object/work as captured in the resource in focus.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#resourceDescription">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">resourceSet</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">xs:string (required)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                        <li class="">xml:lang (optional)</li>
+                        <li class="">encodinganalog (optional)</li>
+                        <li class="">label (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">Choose the type attribute from the <a href="#Extensions_to_LIDO_terminologies__Terminology_for_type_of_resource_description">Terminology for type of resource description</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Attributes (LIDO: no recommendations for type attribute).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">type and lang are recommended attributes.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:resourceDescription lido:type="colour content" xml:lang="fi"&gt;mustavalkoinen&lt;/lido:resourceDescription&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="resourceRepresentation">
+            <h2>&lt;resourceRepresentation&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information about the digital representation of a resource for
+                     online presentation.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#resourceRepresentation">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">resourceSet</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><a href="#linkResource">linkResource</a> (required)</li>
+                        <li class="">resourceMeasurementsSet (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>type (required)</b><li class="indent1"><a href="http://lido-schema.org/documents/terminology-recommendation.html#resourceRepresentation_type">LIDO Terminology for Type of Resource Representation</a> extended by four image types: see the <a href="#Extensions_to_LIDO_terminologies__Extended_terminology_for_type_of_resource_representation">Extended terminology for type of resource representation</a>.</li>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">For downloadable resources, it is recommended to specify the file size in the resourceMeasurementsSet
+                           element.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Attributes (LIDO: type is optional and chosen from <a href="http://lido-schema.org/documents/terminology-recommendation.html#resourceRepresentation_type">LIDO Terminology for Type of Resource Representation</a>).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">Type attribute is required for resourceRepresentation.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">If resource type is not thumbnail, resourceMeasurementsSet is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:resourceRepresentation lido:type="image_original" &gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:linkResource lido:formatResource="image/jpeg"&gt;https://linktoimagefile&lt;/lido:linkResource&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:resourceMeasurementsSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:measurementType&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;skos:Concept rdf:about="http://www.yso.fi/onto/yso/p4902"/&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:term xml:lang="en"&gt;size&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:measuremenType&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:measurementUnit xml:lang="en"&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:term xml:lang="en"&gt;MB&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:measuremenUnit&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:measurementValue&gt;10&lt;/lido:measurementValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:resourceMeasurementsSet&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:resourceRepresentation&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="rightsResource">
+            <h2>&lt;rightsResource&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information about rights regarding the image or other resource.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#rightsResource">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">resourceSet</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>rightsType (required)</b></li>
+                        <li class="">rightsDate (optional)</li>
+                        <li class="">rightsHolder (optional)</li>
+                        <li class="">creditLine (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">The rights statement or license of the resource should be specified in rightsType/conceptID.</li>
+                        <li class="">The rights type of the resource is recommended to be chosen from <a href="https://creativecommons.org/about/cclicenses/">Creative Common Licenses</a> or <a href="https://rightsstatements.org/">Rights Statements</a>.</li>
+                        <li class="">If the rights statement <a href="https://rightsstatements.org/vocab/InC/1.0/&gt;">In Copyright</a> is used, it is required to specify the name of the rights holder in rightsHolder/legalBodyName/appellationValue.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Cardinality (LIDO: 0–unbounded).</li>
+                        <li class="">Required elements (LIDO: rightsType is optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">There must be a rightsType with a non-empty conceptID.</li>
+                        <li class="">If the rightsType/conceptID refers to "https://rightsstatements.org/vocab/InC/1.0/",
+                           there must be a non-empty rightsHolder/legalBodyName/appellationValue.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:rightsResource&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:rightsType&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"&gt;https://creativecommons.org/licenses/by/4.0/&lt;/lido:conceptID&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:term&gt;CC BY 4.0&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:rightsType&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:rightsResource&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="subjectConcept">
+            <h2>&lt;subjectConcept&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>An index element for the subject matter of the object/work expressed by generic concepts.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#subjectConcept">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">subject</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">skos:Concept (optional)</li>
+                        <li class="">conceptID (optional – recommended)</li>
+                        <li class="">term (optional – recommended)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">For subject concepts, conceptID is a recommended element.</li>
+                        <li class="">It is recommended to choose a conceptID URI from <a href="http://www.yso.fi/onto/yso/">YSO – General Finnish ontology</a> or <a href="http://www.yso.fi/onto/koko/">KOKO ontology</a> or another linked open vocabulary.</li>
+                        <li class="">It is recommended to specify the source for the Concept ID in the source attribute
+                           of conceptID. Usually the source code of the vocabulary, chosen for example from the
+                           list of <a href="https://www.loc.gov/standards/sourcelist/subject.html">Subject Heading and Term Source Codes</a>.</li>
+                        <li class="">It is recommended to specify the language of the term by using the lang attribute
+                           in term.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <li class="">–</li>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">For YSO concepts with source attribute "yso", the conceptID should begin with "http://www.yso.fi/onto/yso/"".</li>
+                        <li class="">For KOKO concepts with source attribute "koko", the conceptID should begin with "http://www.yso.fi/onto/koko/"".</li>
+                        <li class="">For YSO, KOKO or other concept URIs, the conceptID should have the type attribute
+                           <a href="http://terminology.lido-schema.org/lido00099">URI</a>.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">subjectConcept is a recommended element.</li>
+                        <li class="">conceptID is a recommended element within subjectConcept.</li>
+                        <li class="">For subjectConcept/conceptID, it is recommended to use the source attribute of conceptID
+                           to identify the source for the ID.</li>
+                        <li class="">For YSO conceptIDs, the source attribute "yso" is recommended.</li>
+                        <li class="">For KOKO conceptIDs, the source attribute "koko" is recommended.</li>
+                        <li class="">The lang attribute in term element is recommended.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:subjectConcept&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="koko"&gt;http://www.yso.fi/onto/koko/p34718&lt;/lido:conceptID&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="fi"&gt;kirkkorakennukset&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="en"&gt;church buildings&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="sv"&gt;kyrkobyggnader&lt;/lido:term&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:term xml:lang="se"&gt;girkovisttit&lt;/lido:term&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:subjectConcept&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="eventDate">
+            <h2>&lt;subjectDate&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of display and index elements for the date or range of dates referred to by
+                     an object/work, or what it is about.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#subjectDate">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">subject</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayDate (optional - recommended)</li>
+                        <li class="">date (optional - recommended)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">sortorder</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended to provide the date both as human-readable text in displayDate and
+                           in machine-readable form in date.</li>
+                        <li class="">The lang attribute is recommended in displayDate.</li>
+                        <li class="">Within date, use <a href="#earliestDate">earliestDate</a> for the beginning of the timespan and <a href="#latestDate">latestDate</a> for the end of the timespan.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <p>-</p>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">subjectDate/displayDate is a recommended element.</li>
+                        <li class="">The lang attribute is recommended in subjectDate/displayDate.</li>
+                        <li class="">subjectDate/date is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:subjectDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayDate xml:lang="fi"&gt;1910–1912&lt;/lido:displayDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:date&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:earliestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;1910-01-01&lt;/lido:earliestDate&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:latestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;1912-12-31&lt;/lido:latestDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:date&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:subjectDate&gt;</p>
+               </div>
+               <div class="">
+                  <p>_____</p>
+                  <p>&lt;lido:subjectDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayDate xml:lang="fi"&gt;23.1.2025&lt;/lido:displayDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:date&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:earliestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;2025-23-01&lt;/lido:earliestDate&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:latestDate lido:type="http://terminology.lido-schema.org/lido00528"&gt;2025-23-01&lt;/lido:latestDate&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:date&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:subjectDate&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="subjectPlace">
+            <h2>&lt;subjectPlace&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of display and index elements for a place depicted by the object/work in focus,
+                     or what it is about.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#subjectPlace">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">subject</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class="">displayPlace (optional - recommended)</li>
+                        <li class=""><a href="#place">place</a> (optional - recommended)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>0–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is required to include the name of the place either in displayPlace or in event/namePlaceSet/appellationValue.
+                           Using both is recommended.</li>
+                        <li class="">It is recommended to provide both a displayPlace element gathering information from
+                           all place and partOfPlace elements, and a place element with more granular information.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <ul>
+                        <li class="">Required elements (LIDO: displayPlace and place/namePlaceSet are both optional).</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">It is required to have either a non-empty displayPlace element, or a non-empty place/namePlaceSet/appellationValue.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">displayPlace is a recommended element.</li>
+                        <li class="">place is a recommended element.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:subjectPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:displayPlace&gt;Käenkuja 3, Helsinki&lt;/lido:displayPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:place&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:appellationValue lido:label="katuosoite" xml:lang="fi"&gt;Käenkuja 3&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:gml&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;gml:Point&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;gml:pos&gt;60.1852702 24.9618065&lt;/gml:pos&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/gml:Point&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:gml&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:placeID lido:type="http://terminology.lido-schema.org/lido00099" lido:source="yso"&gt;http://www.yso.fi/onto/yso/p94137&lt;lido:placeID&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent4">
+                  <p>&lt;lido:appellationValue lido:label="kunta" xml:lang="fi"&gt;Helsinki&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent3">
+                  <p>&lt;/lido:namePlaceSet&gt;</p>
+               </div>
+               <div class="indent2">
+                  <p>&lt;/lido:partOfPlace&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;/lido:place&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:subjectPlace&gt;</p>
+               </div>
+            </div>
+         </div>
+         <div class="ap-unit" id="titleSet">
+            <h2>&lt;titleSet&gt;</h2>
+            <div class="ap_description">
+               <h3>Description</h3>
+               <div>
+                  <p>A set of structured information about one or more titles or object names with source
+                     information.</p>
+                  <p><a href="http://lido-schema.org/schema/v1.1/lido-v1.1.html#titleSet">Link to the LIDO schema</a></p>
+               </div>
+            </div>
+            <div class="ap_how_to_record">
+               <h3>Technical information</h3>
+               <div class="ap_contained_by">
+                  <h4>Contained by</h4>
+                  <div>
+                     <li class="">titleWrap</li>
+                  </div>
+               </div>
+               <div class="ap_may_contain">
+                  <h4>May contain</h4>
+                  <div>
+                     <ul>
+                        <li class=""><b>appellationValue (required)</b></li>
+                        <li class="">sourceAppellation (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_attributes">
+                  <h4>Attributes</h4>
+                  <div>
+                     <ul>
+                        <li class="">type (optional)</li>
+                        <li class="">sortorder (optional)</li>
+                        <li class="">pref (optional)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_cardinality">
+                  <h4>Cardinality</h4>
+                  <div>
+                     <p>1–unbounded</p>
+                  </div>
+               </div>
+               <div class="ap_recording_notes">
+                  <h4>Recording notes</h4>
+                  <div>
+                     <ul>
+                        <li class="">It is recommended not to use extremely short or long titles.</li>
+                        <li class="">It is recommended to specify the language of the title by using the lang attribute
+                           in appellationValue.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="ap_divergence_from_LIDO">
+                  <h4>Divergence from LIDO</h4>
+                  <div>
+                     <p>-</p>
+                  </div>
+               </div>
+               <div class="ap_additional_Schematron_rules">
+                  <h4>Additional Schematron rules</h4>
+                  <div>
+                     <p>Severity: warning</p>
+                     <ul>
+                        <li class="">At least one titleSet with a non-empty appellationValue is required.</li>
+                     </ul>
+                     <p>Severity: information</p>
+                     <ul>
+                        <li class="">The lang attribute in appellationValue element is recommended.</li>
+                        <li class="">It is recommended that appellationValue has at least 3 and not more than 180 characters.</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="ap_examples">
+               <h3>Examples</h3>
+               <div class="">
+                  <p>&lt;lido:titleSet&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:appellationValue xml:lang="fi" pref="http://terminology.lido-schema.org/lido00169"&gt;Ensisijainen
+                     otsikko&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:appellationValue xml:lang="en" pref="http://terminology.lido-schema.org/lido00169"&gt;Preferred
+                     title&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:appellationValue xml:lang="sv" pref="http://terminology.lido-schema.org/lido00169"&gt;Titel&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:appellationValue xml:lang="se" pref="http://terminology.lido-schema.org/lido00169"&gt;Bajilčálus&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:appellationValue xml:lang="fi" pref="http://terminology.lido-schema.org/lido00170"&gt;Vaihtoehtoinen
+                     otsikko&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="indent1">
+                  <p>&lt;lido:appellationValue xml:lang="en" pref="http://terminology.lido-schema.org/lido00170"&gt;Alternate
+                     title&lt;/lido:appellationValue&gt;</p>
+               </div>
+               <div class="">
+                  <p>&lt;/lido:titleSet&gt;</p>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>
