@@ -16,8 +16,8 @@ The folder related to the LIDO format contains the LIDO application profile. The
 
 The LIDO application profile contains a comprehensive documentation of Finna's guidelines for using LIDO format. The application profile defines which elements and attributes of the LIDO Schema Version 1.1 are mandatory or recommended in Finna, and provides instructions and examples how to use them. Furthermore, it includes recommendations for the use of linked open vocabularies, terminologies and controlled formats. Besides documentation, the application profile contains files that can be used to validate a LIDO record against the profile's requirements and recommendations.
 
-The application profile consists of four documents:
-- An HTML document describing the contents of the profile in human-readable format.
+The application profile consists of:
+- An HTML document describing the contents of the profile in human-readable format. A PDF version is also included.
 - An XSD file (XML Schema Definition) that defines the application profile and can be used to validate LIDO records with XML validation tools. XSD validation can only check the presence and the order of LIDO elements, not their content.
 - An SCH file containing the Schematron rules defined in the application profile. Schematron rules include requirements and recommendations for the attributes and contents of LIDO elements. If you are using a XML validation tool that supports SCH, you can use this file directly to validate a LIDO record against the Schematron rules.
 - An XSL file, generated from the SCH file, that can also be used to validate a LIDO record against the Schematron rules by applying the XSL file to the LIDO record with a tool that supports XSLT2.
