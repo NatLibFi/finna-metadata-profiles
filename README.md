@@ -30,26 +30,28 @@ To read the documentation, download the HTML file and open it in a web browser.
 
 #### Validating a LIDO record
 
+The newest version of the LIDO application profile has been integrated into [Finna's preview tool](https://www.kiwi.fi/x/3IFTBw). Using the preview tool is the easiest way to validate a LIDO record against the requirements and recommendations of the application profile. Alternatively, you can use the resources available in this repository with tools of your choice.
+
 Tools used in examples:
 - xmllint (available by default of macOS, on Linux it typically comes with libxml2 or libxml2-utils package)
 - xslt3 ([SaxonJS](https://www.saxonica.com/html/saxonjs/index.html) node.js CLI package)
 
 To validate a LIDO document against the application profile XSD, you may use the XSD file with any XML validation tool, such as an XML editor with XSD support or a command line validator. Example how to validate a LIDO record lidorecord.xml with command line tool xmllint:
 
-    xmllint --noout --schema lido-v1.1-profile-FINNA-v0.1.xsd lidorecord.xml 
+    xmllint --noout --schema lido-v1.1-profile-FINNA-v1.0.xsd lidorecord.xml 
 
 To validate a LIDO document against the Schematron rules defined in the application profile, you may use any tool that supports SCH or XSLT2 validation. Example how to validate a LIDO record lidorecord.xml against all Schematron rules with command line tool xslt3:
 
-    xslt3 -s:lidorecord.xml -xsl:lido-v1.1-profile-FINNA-v0.1.xsl
+    xslt3 -s:lidorecord.xml -xsl:lido-v1.1-profile-FINNA-v1.0.xsl
 
 Schematron rules are divided in two categories by their severity level. Severity level "warning" includes rules that should be followed to pass validation. Using for example command line tools xslt3 and xmllint, running the following command will print a list of warnings:
 
-    xslt3 -s:lidorecord.xml -xsl:lido-v1.1-profile-FINNA-v0.1.xsl | xmllint --xpath "//*[local-name()='schematron-output']/*[local-name()='failed-assert' and @role='WARN']/*[local-name()='text']/text()" -
+    xslt3 -s:lidorecord.xml -xsl:lido-v1.1-profile-FINNA-v1.0.xsl | xmllint --xpath "//*[local-name()='schematron-output']/*[local-name()='failed-assert' and @role='WARN']/*[local-name()='text']/text()" -
 
 Schematron rules of severity type "information" contain recommendations that are not necessary to pass validation, but may help to improve the richness and the quality of the data. Using for example command line tools xslt3 and xmllint, running the following command will print a list of recommendations:
 
-    xslt3 -s:lidorecord.xml -xsl:lido-v1.1-profile-FINNA-v0.1.xsl | xmllint --xpath "//*[local-name()='schematron-output']/*[local-name()='failed-assert' and @role='INFO']/*[local-name()='text']/text()" -
+    xslt3 -s:lidorecord.xml -xsl:lido-v1.1-profile-FINNA-v1.0.xsl | xmllint --xpath "//*[local-name()='schematron-output']/*[local-name()='failed-assert' and @role='INFO']/*[local-name()='text']/text()" -
 
 ### The latest version
 
-The subfolders in the LIDO folder are named by the version number and contain all files related to the specific version. Currently, only a public beta version of the LIDO application profile is available. When a new version of the profile is published, it will be added to the LIDO folder.
+The subfolders in the LIDO folder are named by the version number and contain all files related to the specific version. When a new version of the profile is published, it will be added to the LIDO folder.
