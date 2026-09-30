@@ -26,7 +26,7 @@ The application profile consists of:
 
 #### Reading the documentation
 
-To read the documentation, download the HTML file and open it in a web browser.
+The easiest way to read the documentation is to open [a preview of the HTML document](https://html-preview.github.io/?url=https://github.com/NatLibFi/finna-metadata-profiles/blob/main/LIDO/v1.0/lido-v1.1-profile-FINNA-v1.0.html). 
 
 #### Validating a LIDO record
 
