@@ -2890,7 +2890,7 @@ A set of structured information about the digital representation of a resource f
 **Attributes**
 
 - **type (required)**
-  - [LIDO Terminology for Type of Resource Representation](http://lido-schema.org/documents/terminology-recommendation.html#resourceRepresentation_type) extended by four image types (see [Extended terminology for Type of Resource Representation](#Extended-terminology-for-Type-of-ResourceRepresentation)).
+  - [LIDO Terminology for Type of Resource Representation](http://lido-schema.org/documents/terminology-recommendation.html#resourceRepresentation_type) extended by four image types (see [Extended terminology for Type of Resource Representation](#Extended-terminology-for-Type-of-Resource-Representation)).
 
 **Cardinality**
 
